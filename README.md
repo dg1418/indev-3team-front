@@ -1,3 +1,52 @@
+# Indev-Front Project
+
+This project is a React-based front-end application.
+
+## Project Structure
+
+The project follows a feature-based and role-based hybrid structure for scalability and maintainability.
+
+```
+src/
+├── api/
+│   └── client.js            # API request client (e.g., axios instance)
+├── assets/
+│   ├── images/
+│   └── fonts/
+├── components/
+│   ├── common/              # Common reusable components (Button, Input, Modal)
+│   └── layout/              # Page layout components (Header, Footer, Sidebar)
+├── hooks/
+│   └── useAuth.js           # Custom hooks (e.g., for authentication, form handling)
+├── pages/
+│   ├── HomePage.js
+│   └── LoginPage.js
+├── services/
+│   ├── authService.js       # Domain-specific API request functions (e.g., authentication)
+│   └── postService.js       # (e.g., for posts)
+├── styles/
+│   └── global.css           # Global styles
+├── utils/
+│   └── formatDate.js        # Pure utility functions
+├── App.js                   # Main application component for routing and global state
+└── index.js                 # Application entry point
+```
+
+### Folder Descriptions
+
+*   **`api/`**: Manages the central HTTP client (e.g., `axios`) for communicating with the backend server. Common logic like adding authentication tokens to headers is handled here.
+*   **`assets/`**: Stores static files like images and fonts.
+*   **`components/`**: Contains UI components.
+    *   `common/`: Generic, reusable components like `Button`, `Input`, etc.
+    *   `layout/`: Components that define the overall page structure, such as `Header`, `Footer`.
+*   **`hooks/`**: Stores custom React hooks that encapsulate and reuse stateful logic.
+*   **`pages/`**: Contains components that represent a full page (e.g., `HomePage`, `AboutPage`). These components assemble smaller components from the `components/` directory.
+*   **`services/`**: Contains functions that call the backend API, grouped by domain (similar to services in NestJS). They use the client from `api/` to make the actual requests.
+*   **`styles/`**: Holds global CSS files, such as `reset.css` or global style definitions.
+*   **`utils/`**: For pure, framework-agnostic utility functions (e.g., date formatting, validation).
+*   **`App.js`**: The root component, primarily responsible for client-side routing and providing global context.
+*   **`index.js`**: The entry point of the application, where the React app is mounted to the DOM.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
