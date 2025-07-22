@@ -1,3 +1,5 @@
+/* 애플리케이션 진입점 */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';

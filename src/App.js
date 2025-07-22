@@ -1,3 +1,5 @@
+/* 라우팅 및 전역 상태 관리를 위한 메인 애플리케이션 */
+
 import logo from '../assets/images/logo.svg';
 import './App.css';
 
