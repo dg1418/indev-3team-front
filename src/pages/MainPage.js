@@ -1,12 +1,13 @@
 /* 사이드바와 채팅 인터페이스를 모두 포함하는 메인 페이지 */
 
 import React from 'react';
+import Sidebar from '../components/layout/Sidebar';
 
 const MainPage = () => {
   return (
-    <div>
-      <h1>약지기</h1>
-      {/* 여기에 사이드바와 채팅 인터페이스 컴포넌트가 들어옵니다. */}
+    <div className="main-page">
+      <Sidebar />
+      {/* 채팅 인터페이스가 들어올 자리 */}
     </div>
   );
 };

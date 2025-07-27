@@ -1,8 +1,8 @@
 import React from 'react';
-import ButtonExamples from '../components/common/ButtonExamples';
+import MainPage from './MainPage';
 
 function App() {
-  return <ButtonExamples />;
+  return <MainPage />;
 }
 
 export default App;
