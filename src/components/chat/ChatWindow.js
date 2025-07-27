@@ -1,9 +1,12 @@
 import React from 'react';
+import Message from './Message';
 
-const ChatWindow = () => {
+const ChatWindow = ({ messages }) => {
   return (
-    <div>
-      {/* 메시지들이 여기에 표시됩니다. */}
+    <div className="chat-window">
+      {messages.map((msg) => (
+        <Message key={msg.id} text={msg.text} sender={msg.sender} />
+      ))}
     </div>
   );
 };

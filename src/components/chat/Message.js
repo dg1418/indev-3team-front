@@ -1,9 +1,10 @@
 import React from 'react';
 
 const Message = ({ text, sender }) => {
+  const messageClass = sender === 'user' ? 'user' : 'ai';
   return (
-    <div>
-      <p><strong>{sender}:</strong> {text}</p>
+    <div className={`message ${messageClass}`}>
+      <p>{text}</p>
     </div>
   );
 };

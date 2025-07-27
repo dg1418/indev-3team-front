@@ -1,1 +1,220 @@
 /* 전역 스타일 */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 폰트 변경 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5; /* 전체 배경색 */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.main-page {
+  display: flex;
+  height: 100vh;
+  overflow: hidden; /* 스크롤바 숨김 */
+}
+
+.sidebar {
+  width: 280px; /* 너비 조정 */
+  background-color: #202123; /* 더 어두운 배경색 */
+  color: #e0e0e0; /* 텍스트 색상 조정 */
+  padding: 15px; /* 패딩 조정 */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+.sidebar-header {
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+  margin-bottom: 20px;
+}
+
+.sidebar-header h1 {
+  margin: 0;
+  font-size: 28px; /* 폰트 크기 조정 */
+  font-weight: bold;
+  text-align: center;
+  color: #61dafb; /* 로고 색상 */
+}
+
+.sidebar-new-chat button {
+  width: 100%;
+  padding: 12px 15px; /* 패딩 조정 */
+  background-color: #3a3f47; /* 버튼 배경색 */
+  border: 1px solid #555; /* 테두리 추가 */
+  border-radius: 8px; /* 둥근 모서리 */
+  color: #e0e0e0;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-new-chat button:hover {
+  background-color: #4a4f57;
+}
+
+.sidebar-new-chat button svg {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.sidebar-history {
+  flex-grow: 1;
+  margin-top: 20px;
+  overflow-y: auto;
+  padding-right: 5px; /* 스크롤바 공간 확보 */
+}
+
+.sidebar-history::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-history::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+.sidebar-history::-webkit-scrollbar-track {
+  background-color: #333;
+}
+
+.sidebar-chat-item {
+  padding: 12px 15px; /* 패딩 조정 */
+  margin-bottom: 8px; /* 간격 조정 */
+  background-color: #2f3136; /* 아이템 배경색 */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-chat-item:hover {
+  background-color: #3a3f47;
+}
+
+.sidebar-chat-item svg {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.sidebar-chat-item span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-bottom {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+}
+
+.sidebar-bottom button {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #3a3f47;
+  border: 1px solid #555;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-bottom button:hover {
+  background-color: #4a4f57;
+}
+
+.sidebar-bottom button svg {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.chat-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f7; /* 채팅 영역 배경색 */
+}
+
+.chat-window {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  margin-bottom: 15px; /* 간격 조정 */
+  padding: 12px 18px; /* 패딩 조정 */
+  border-radius: 20px; /* 둥근 모서리 */
+  max-width: 75%; /* 최대 너비 조정 */
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.message.user {
+  background-color: #dcf8c6; /* 사용자 메시지 색상 */
+  align-self: flex-end;
+  margin-left: auto;
+  border-bottom-right-radius: 5px; /* 특정 모서리 덜 둥글게 */
+}
+
+.message.ai {
+  background-color: #ffffff; /* AI 메시지 색상 */
+  align-self: flex-start;
+  margin-right: auto;
+  border: 1px solid #e0e0e0; /* AI 메시지 테두리 */
+  border-bottom-left-radius: 5px; /* 특정 모서리 덜 둥글게 */
+}
+
+.symptom-input {
+  display: flex;
+  padding: 15px 20px; /* 패딩 조정 */
+  background-color: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  align-items: center;
+}
+
+.symptom-input input {
+  flex-grow: 1;
+  padding: 12px 18px; /* 패딩 조정 */
+  border: 1px solid #ccc;
+  border-radius: 25px; /* 더 둥근 모서리 */
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.symptom-input input:focus {
+  outline: none;
+  border-color: #61dafb;
+}
+
+.symptom-input button {
+  padding: 12px 25px; /* 패딩 조정 */
+  background-color: #61dafb; /* 버튼 색상 */
+  color: white;
+  border: none;
+  border-radius: 25px; /* 더 둥근 모서리 */
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.symptom-input button:hover {
+  background-color: #4fa3d7;
+}
