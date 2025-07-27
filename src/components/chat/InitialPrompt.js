@@ -1,3 +1,8 @@
+/**
+ * @file InitialPrompt.js
+ * @description 채팅이 시작되기 전 사용자에게 보여지는 초기 프롬프트 화면 컴포넌트입니다.
+ *              증상 입력 유도 메시지와 함께 예시 증상 버튼들을 제공하여 사용자의 입력을 돕습니다.
+ */
 import React from 'react';
 
 const InitialPrompt = () => {

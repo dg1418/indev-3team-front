@@ -1,4 +1,9 @@
-// src/components/common/Button.js
+/**
+ * @file Button.js
+ * @description 재사용 가능한 범용 버튼 컴포넌트입니다.
+ *              다양한 스타일(variant), 크기(size), 상태(disabled, loading), 아이콘 포함 여부 등을 설정할 수 있습니다.
+ *              애플리케이션 전반에 걸쳐 일관된 버튼 UI를 제공합니다.
+ */
 import React from 'react';
 import './Button.css';
 

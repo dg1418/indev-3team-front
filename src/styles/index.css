@@ -1,3 +1,8 @@
+/**
+ * @file index.css
+ * @description React 애플리케이션의 전역 CSS 파일 중 하나로, 주로 `src/index.js`에서 임포트됩니다.
+ *              `global.css`와 함께 애플리케이션의 기본 스타일을 정의하며, 주로 `body`와 `code` 태그에 대한 기본 스타일을 포함합니다.
+ */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

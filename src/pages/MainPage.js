@@ -1,4 +1,9 @@
-/* 사이드바와 채팅 인터페이스를 모두 포함하는 메인 페이지 */
+/**
+ * @file MainPage.js
+ * @description 애플리케이션의 메인 레이아웃을 담당하는 컴포넌트입니다.
+ *              사이드바와 채팅 인터페이스(초기 프롬프트, 채팅창, 입력창)를 통합하여 렌더링합니다.
+ *              사용자의 메시지 상태를 관리하고, 메시지 전송 핸들러를 하위 컴포넌트에 전달합니다.
+ */
 
 import React, { useState } from 'react';
 import Sidebar from '../components/layout/Sidebar';

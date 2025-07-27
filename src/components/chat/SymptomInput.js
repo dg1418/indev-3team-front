@@ -1,3 +1,8 @@
+/**
+ * @file SymptomInput.js
+ * @description 사용자가 증상을 입력하고 전송하는 입력 필드와 버튼을 포함하는 컴포넌트입니다.
+ *              입력된 텍스트를 관리하고, 전송 시 부모 컴포넌트의 `onSendMessage` 함수를 호출합니다.
+ */
 import React, { useState } from 'react';
 
 const SymptomInput = ({ onSendMessage }) => {

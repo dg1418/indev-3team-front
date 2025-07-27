@@ -1,4 +1,9 @@
-/* src/components/common/Button.css */
+/**
+ * @file Button.css
+ * @description `Button` 컴포넌트의 스타일을 정의하는 CSS 파일입니다.
+ *              다양한 버튼 변형(variant), 크기(size), 상태(disabled, loading) 및 아이콘에 대한 스타일을 포함합니다.
+ *              `Button.js`와 함께 사용되어 일관된 버튼 디자인을 제공합니다.
+ */
 
 /* 기본 버튼 스타일 */
 .btn {

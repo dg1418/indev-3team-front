@@ -1,5 +1,10 @@
-// src/components/examples/ButtonExamples.js
-// 약지기 서비스에서 Button 컴포넌트 사용 예시
+/**
+ * @file ButtonExamples.js
+ * @description `Button` 컴포넌트의 다양한 사용 예시를 보여주는 컴포넌트입니다.
+ *              다양한 `variant`, `size`, `icon`, `loading` 상태 등을 시연하며,
+ *              `Button` 컴포넌트의 기능을 테스트하고 시각적으로 확인하는 데 사용됩니다.
+ *              실제 애플리케이션에서는 사용되지 않는 개발/데모 목적의 파일입니다.
+ */
 
 import React, { useState } from 'react';
 import Button from './Button';

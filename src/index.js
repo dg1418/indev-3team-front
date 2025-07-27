@@ -1,4 +1,9 @@
-/* 애플리케이션 진입점 */
+/**
+ * @file index.js
+ * @description React 애플리케이션의 메인 진입점 파일입니다.
+ *              루트 DOM 요소에 `App` 컴포넌트를 렌더링하고, 웹 성능 지표(Web Vitals) 보고를 설정합니다.
+ *              애플리케이션의 시작점 역할을 합니다.
+ */
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';

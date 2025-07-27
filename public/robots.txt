@@ -1,3 +1,8 @@
+#
+# @file robots.txt
+# @description 웹 크롤러(검색 엔진 봇)의 웹사이트 접근을 제어하는 파일입니다.
+#              어떤 페이지를 크롤링할지, 어떤 페이지를 크롤링하지 않을지 지정하여 검색 엔진 최적화(SEO)에 활용됩니다.
+#
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
