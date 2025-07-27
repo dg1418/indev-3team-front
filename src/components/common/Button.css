@@ -1,0 +1,262 @@
+/* src/components/common/Button.css */
+
+/* 기본 버튼 스타일 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* 크기 변형 */
+.btn--small {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  min-height: 32px;
+}
+
+.btn--medium {
+  padding: 12px 24px;
+  font-size: 16px;
+  min-height: 44px;
+}
+
+.btn--large {
+  padding: 16px 32px;
+  font-size: 18px;
+  border-radius: 10px;
+  min-height: 52px;
+}
+
+/* 색상 변형 - Primary (약지기 메인 컬러) */
+.btn--primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn--primary:hover:not(.btn--disabled):not(.btn--loading) {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn--primary:active:not(.btn--disabled):not(.btn--loading) {
+  transform: translateY(0);
+  background-color: #1d4ed8;
+}
+
+/* 색상 변형 - Secondary */
+.btn--secondary {
+  background-color: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.btn--secondary:hover:not(.btn--disabled):not(.btn--loading) {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+/* 색상 변형 - Outline */
+.btn--outline {
+  background-color: transparent;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+}
+
+.btn--outline:hover:not(.btn--disabled):not(.btn--loading) {
+  background-color: #3b82f6;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* 색상 변형 - Ghost */
+.btn--ghost {
+  background-color: transparent;
+  color: #64748b;
+}
+
+.btn--ghost:hover:not(.btn--disabled):not(.btn--loading) {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+/* 색상 변형 - Danger */
+.btn--danger {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn--danger:hover:not(.btn--disabled):not(.btn--loading) {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* 색상 변형 - Success */
+.btn--success {
+  background-color: #10b981;
+  color: white;
+}
+
+.btn--success:hover:not(.btn--disabled):not(.btn--loading) {
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+/* 상태별 스타일 */
+.btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn--loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+.btn--loading .btn__text {
+  opacity: 0.7;
+}
+
+/* 전체 너비 */
+.btn--full-width {
+  width: 100%;
+}
+
+/* 아이콘 스타일 */
+.btn__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn__icon--left {
+  margin-right: 4px;
+}
+
+.btn__icon--right {
+  margin-left: 4px;
+}
+
+.btn--small .btn__icon {
+  font-size: 14px;
+}
+
+.btn--medium .btn__icon {
+  font-size: 16px;
+}
+
+.btn--large .btn__icon {
+  font-size: 18px;
+}
+
+/* 로딩 스피너 */
+.btn__spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn__spinner-icon {
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+}
+
+.btn--small .btn__spinner-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.btn--large .btn__spinner-icon {
+  width: 18px;
+  height: 18px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 버튼 텍스트 */
+.btn__text {
+  display: inline-block;
+}
+
+/* 특수한 약지기 스타일 추가 */
+.btn--pill {
+  border-radius: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.btn--symptom-tag {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 14px;
+  min-height: 32px;
+}
+
+.btn--symptom-tag:hover:not(.btn--disabled) {
+  background-color: #e2e8f0;
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.btn--symptom-tag.btn--selected {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .btn--large {
+    padding: 14px 28px;
+    font-size: 16px;
+    min-height: 48px;
+  }
+  
+  .btn--medium {
+    padding: 10px 20px;
+    font-size: 15px;
+    min-height: 40px;
+  }
+  
+  .btn--small {
+    padding: 6px 12px;
+    font-size: 13px;
+    min-height: 28px;
+  }
+}
