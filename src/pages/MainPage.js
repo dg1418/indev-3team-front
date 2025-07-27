@@ -1,3 +1,5 @@
+/* 사이드바와 채팅 인터페이스를 모두 포함하는 메인 페이지 */
+
 import React from 'react';
 
 const MainPage = () => {
