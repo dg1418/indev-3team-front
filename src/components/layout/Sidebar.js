@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaPlus, FaCommentDots, FaMapMarkerAlt } from 'react-icons/fa';
-import logo from '../assets/images/logo.svg';
+import logo from '../../assets/images/logo.svg';
 
 const Sidebar = () => {
   const chatHistory = [
@@ -12,7 +12,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <img src={logo} alt="약지기 로고" className="sidebar-logo" />
+                {/* <img src={logo} alt="약지기 로고" className="sidebar-logo" /> */}
       </div>
       <div className="sidebar-new-chat">
         <button>

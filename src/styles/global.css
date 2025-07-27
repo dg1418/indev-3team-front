@@ -23,7 +23,7 @@ code {
   width: 280px; /* 너비 조정 */
   background-color: #202123; /* 더 어두운 배경색 */
   color: #e0e0e0; /* 텍스트 색상 조정 */
-  padding: 15px; /* 패딩 조정 */
+  padding: 15px;
   display: flex;
   flex-direction: column;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
@@ -33,22 +33,19 @@ code {
   padding: 10px 0;
   border-bottom: 1px solid #333;
   margin-bottom: 20px;
+  text-align: center; /* 로고 중앙 정렬 */
 }
 
-.sidebar-header h1 {
-  margin: 0;
-  font-size: 28px; /* 폰트 크기 조정 */
-  font-weight: bold;
-  text-align: center;
-  color: #61dafb; /* 로고 색상 */
+.sidebar-logo {
+  height: 40px; /* 로고 크기 조정 */
 }
 
 .sidebar-new-chat button {
   width: 100%;
-  padding: 12px 15px; /* 패딩 조정 */
-  background-color: #3a3f47; /* 버튼 배경색 */
-  border: 1px solid #555; /* 테두리 추가 */
-  border-radius: 8px; /* 둥근 모서리 */
+  padding: 12px 15px;
+  background-color: #3a3f47;
+  border: 1px solid #555;
+  border-radius: 8px;
   color: #e0e0e0;
   font-size: 15px;
   cursor: pointer;
@@ -71,7 +68,7 @@ code {
   flex-grow: 1;
   margin-top: 20px;
   overflow-y: auto;
-  padding-right: 5px; /* 스크롤바 공간 확보 */
+  padding-right: 5px;
 }
 
 .sidebar-history::-webkit-scrollbar {
@@ -88,9 +85,9 @@ code {
 }
 
 .sidebar-chat-item {
-  padding: 12px 15px; /* 패딩 조정 */
-  margin-bottom: 8px; /* 간격 조정 */
-  background-color: #2f3136; /* 아이템 배경색 */
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  background-color: #2f3136;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -147,7 +144,7 @@ code {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  background-color: #f7f7f7; /* 채팅 영역 배경색 */
+  background-color: #f7f7f7;
 }
 
 .chat-window {
@@ -159,32 +156,32 @@ code {
 }
 
 .message {
-  margin-bottom: 15px; /* 간격 조정 */
-  padding: 12px 18px; /* 패딩 조정 */
-  border-radius: 20px; /* 둥근 모서리 */
-  max-width: 75%; /* 최대 너비 조정 */
+  margin-bottom: 15px;
+  padding: 12px 18px;
+  border-radius: 20px;
+  max-width: 75%;
   line-height: 1.5;
   word-wrap: break-word;
 }
 
 .message.user {
-  background-color: #dcf8c6; /* 사용자 메시지 색상 */
+  background-color: #dcf8c6;
   align-self: flex-end;
   margin-left: auto;
-  border-bottom-right-radius: 5px; /* 특정 모서리 덜 둥글게 */
+  border-bottom-right-radius: 5px;
 }
 
 .message.ai {
-  background-color: #ffffff; /* AI 메시지 색상 */
+  background-color: #ffffff;
   align-self: flex-start;
   margin-right: auto;
-  border: 1px solid #e0e0e0; /* AI 메시지 테두리 */
-  border-bottom-left-radius: 5px; /* 특정 모서리 덜 둥글게 */
+  border: 1px solid #e0e0e0;
+  border-bottom-left-radius: 5px;
 }
 
 .symptom-input {
   display: flex;
-  padding: 15px 20px; /* 패딩 조정 */
+  padding: 15px 20px;
   background-color: #ffffff;
   border-top: 1px solid #e0e0e0;
   align-items: center;
@@ -192,9 +189,9 @@ code {
 
 .symptom-input input {
   flex-grow: 1;
-  padding: 12px 18px; /* 패딩 조정 */
+  padding: 12px 18px;
   border: 1px solid #ccc;
-  border-radius: 25px; /* 더 둥근 모서리 */
+  border-radius: 25px;
   margin-right: 10px;
   font-size: 16px;
 }
@@ -205,11 +202,11 @@ code {
 }
 
 .symptom-input button {
-  padding: 12px 25px; /* 패딩 조정 */
-  background-color: #61dafb; /* 버튼 색상 */
+  padding: 12px 25px;
+  background-color: #61dafb;
   color: white;
   border: none;
-  border-radius: 25px; /* 더 둥근 모서리 */
+  border-radius: 25px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.2s ease;
@@ -217,4 +214,64 @@ code {
 
 .symptom-input button:hover {
   background-color: #4fa3d7;
+}
+
+.initial-prompt {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #555;
+  padding: 20px;
+}
+
+.initial-prompt h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.initial-prompt p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.symptom-examples {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 반응형 그리드 */
+  gap: 10px; /* 버튼 간 간격 */
+  max-width: 600px; /* 최대 너비 설정 */
+  margin-bottom: 40px;
+}
+
+.symptom-button {
+  padding: 10px 15px;
+  background-color: #e0e0e0; /* 버튼 배경색 */
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+.symptom-button:hover {
+  background-color: #d0d0d0;
+}
+
+.initial-prompt-footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #888;
+}
+
+.disclaimer-text {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  margin-top: 10px;
+  padding: 0 20px;
 }
