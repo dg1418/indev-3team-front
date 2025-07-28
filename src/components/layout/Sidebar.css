@@ -1,34 +1,69 @@
+/* src/components/layout/Sidebar.css */
+
 .sidebar {
-  width: 280px; /* 너비 조정 */
+  position: fixed; /* 화면에 고정 */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 280px;
   background-color: #202123;
   color: #e0e0e0;
   padding: 15px;
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  transition: width 0.3s ease; /* 너비 전환 효과 */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1100; /* 오버레이보다 위에 있도록 설정 */
+
+  /* 애니메이션 효과 */
+  transform: translateX(-100%); /* 기본적으로 화면 왼쪽에 숨김 */
+  transition: transform 0.3s ease-in-out;
 }
 
-.sidebar--collapsed {
-  width: 80px; /* 축소된 너비 */
+/* 사이드바가 열렸을 때의 스타일 */
+.sidebar.sidebar--open {
+  transform: translateX(0); /* 화면 안으로 슬라이드 */
+}
+
+/* 뒷배경 어둡게 처리 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000; /* 사이드바보다 아래에 있도록 설정 */
 }
 
 .sidebar-header {
-  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 로고와 버튼을 양 끝으로 정렬 */
+  padding-bottom: 15px;
   border-bottom: 1px solid #333;
   margin-bottom: 20px;
-  display: flex; /* flexbox 사용 */
-  align-items: center; /* 세로 중앙 정렬 */
-  justify-content: flex-start; /* 로고와 버튼이 왼쪽에 정렬되도록 변경 */
-  position: relative; /* 자식 요소의 absolute 포지셔닝을 위한 기준 */
 }
 
 .sidebar-logo {
-  height: 40px; /* 로고 크기 조정 */
-  margin-left: 10px; /* 로고 왼쪽 여백 */
+  height: 40px;
 }
 
-.sidebar-new-chat button {
+/* 사이드바 '닫기' 버튼 */
+.sidebar-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.sidebar-close-btn svg {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+/* 나머지 스타일은 이전과 거의 동일 */
+.sidebar-new-chat button, .sidebar-bottom button {
   width: 100%;
   padding: 12px 15px;
   background-color: #3a3f47;
@@ -43,33 +78,18 @@
   transition: background-color 0.2s ease;
 }
 
-.sidebar-new-chat button:hover {
+.sidebar-new-chat button:hover, .sidebar-bottom button:hover {
   background-color: #4a4f57;
 }
 
-.sidebar-new-chat button svg {
+.sidebar-new-chat button svg, .sidebar-bottom button svg {
   margin-right: 10px;
-  font-size: 18px;
 }
 
 .sidebar-history {
   flex-grow: 1;
   margin-top: 20px;
   overflow-y: auto;
-  padding-right: 5px;
-}
-
-.sidebar-history::-webkit-scrollbar {
-  width: 8px;
-}
-
-.sidebar-history::-webkit-scrollbar-thumb {
-  background-color: #555;
-  border-radius: 4px;
-}
-
-.sidebar-history::-webkit-scrollbar-track {
-  background-color: #333;
 }
 
 .sidebar-chat-item {
@@ -89,67 +109,10 @@
 
 .sidebar-chat-item svg {
   margin-right: 10px;
-  font-size: 16px;
-}
-
-.sidebar-chat-item span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .sidebar-bottom {
-  margin-top: 20px;
+  margin-top: auto; /* 하단에 고정 */
   padding-top: 15px;
   border-top: 1px solid #333;
-}
-
-.sidebar-bottom button {
-  width: 100%;
-  padding: 12px 15px;
-  background-color: #3a3f47;
-  border: 1px solid #555;
-  border-radius: 8px;
-  color: #e0e0e0;
-  font-size: 15px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease;
-}
-
-.sidebar-bottom button:hover {
-  background-color: #4a4f57;
-}
-
-.sidebar-bottom button svg {
-  margin-right: 10px;
-  font-size: 18px;
-}
-
-.debug-text {
-  color: red;
-  margin-top: 20px;
-}
-
-.sidebar-toggle-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute; /* Position absolutely within the relative parent */
-  right: 10px; /* Adjust as needed */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for vertical centering */
-  z-index: 10;
-}
-
-.sidebar-toggle-btn svg {
-  width: 24px;
-  height: 24px;
-  filter: invert(1); /* To make the arrow visible on a dark background */
 }

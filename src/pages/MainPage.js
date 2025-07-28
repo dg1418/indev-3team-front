@@ -4,23 +4,21 @@
  *              사이드바와 채팅 인터페이스(초기 프롬프트, 채팅창, 입력창)를 통합하여 렌더링합니다.
  *              사용자의 메시지 상태를 관리하고, 메시지 전송 핸들러를 하위 컴포넌트에 전달합니다.
  */
-
 import React, { useState } from 'react';
 import Sidebar from '../components/layout/Sidebar';
 import ChatWindow from '../components/chat/ChatWindow';
 import SymptomInput from '../components/chat/SymptomInput';
 import InitialPrompt from '../components/chat/InitialPrompt';
-import { ReactComponent as ArrowCircleLeft } from '../assets/arrow-circle-left.svg';
 import { ReactComponent as ArrowCircleRight } from '../assets/arrow-circle-right.svg';
-import '../pages/App.css';
+import './App.css';
 
 const MainPage = () => {
   const [messages, setMessages] = useState([]);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // 사이드바 상태를 '열림' 기준으로 관리 (초기값: 닫힘)
 
+  // 사이드바 상태를 토글하는 함수
   const toggleSidebar = () => {
-    console.log('toggleSidebar called');
-    setIsSidebarCollapsed(!isSidebarCollapsed);
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const handleSendMessage = (text) => {
@@ -31,19 +29,25 @@ const MainPage = () => {
   };
 
   return (
-   <div className="main-layout-container">
-  <Sidebar isCollapsed={isSidebarCollapsed} onToggle={toggleSidebar} />
-  <div className="chat-wrapper">
-    <button className={`sidebar-toggle-btn-main-page ${isSidebarCollapsed ? 'collapsed-position' : ''}`} onClick={toggleSidebar}>
-      {isSidebarCollapsed ? <ArrowCircleRight /> : <ArrowCircleLeft />}
-    </button>
-    <div className={`chat-container ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`} style={{flexGrow: 1}}>
-      {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
-      <SymptomInput onSendMessage={handleSendMessage} />
-      <p className="disclaimer-text">※ 약지기의 ChatBot은 잘못된 정보를 제공할 가능성이 있습니다. 제공된 정보를 맹신하지 마십시오.</p>
+    <div className="main-layout-container">
+      {/* Sidebar에 상태와 닫기 함수를 props로 전달 */}
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+
+      {/* 사이드바가 닫혀 있을 때만 '열기' 버튼을 표시 */}
+      {!isSidebarOpen && (
+        <button className="sidebar-open-btn" onClick={toggleSidebar}>
+          <ArrowCircleRight />
+        </button>
+      )}
+
+      <div className="chat-wrapper">
+        <div className="chat-container" style={{ flexGrow: 1 }}>
+          {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
+          <SymptomInput onSendMessage={handleSendMessage} />
+          <p className="disclaimer-text">※ 약지기의 ChatBot은 잘못된 정보를 제공할 가능성이 있습니다. 제공된 정보를 맹신하지 마십시오.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   );
 };
 
