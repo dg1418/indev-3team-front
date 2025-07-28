@@ -42,3 +42,50 @@
     transform: rotate(360deg);
   }
 }
+
+.main-layout-container {
+  display: flex;
+  height: 100vh; /* 전체 뷰포트 높이를 사용 */
+}
+
+.chat-wrapper {
+  position: relative; /* 토글 버튼의 absolute 포지셔닝을 위한 기준 */
+  flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease; /* 사이드바 너비 변화에 따른 밀림 효과 */
+}
+
+.chat-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  transition: margin-left 0.3s ease; /* 사이드바 너비 변화에 따른 밀림 효과 */
+}
+
+.sidebar-toggle-btn-main-page {
+  position: absolute;
+  top: 20px; /* 상단에서 20px */
+  left: 290px; /* 사이드바 너비 + 여백 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: left 0.3s ease; /* 위치 전환 효과 */
+}
+
+.sidebar-toggle-btn-main-page.collapsed-position {
+  left: 90px; /* 사이드바 축소 시 위치 (축소된 너비 + 여백) */
+}
+
+.sidebar-toggle-btn-main-page svg {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}

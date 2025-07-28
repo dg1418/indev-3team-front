@@ -4,11 +4,15 @@
  *              로고, 새 대화 시작 버튼, 채팅 내역 목록, 그리고 가까운 약국 찾기 버튼을 포함합니다.
  *              채팅 내역은 현재 임시 데이터로 구성되어 있으며, 추후 실제 데이터와 연동될 예정입니다.
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { FaPlus, FaCommentDots, FaMapMarkerAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo.svg';
+import { ReactComponent as ArrowCircleLeft } from '../../assets/arrow-circle-left.svg';
+import { ReactComponent as ArrowCircleRight } from '../../assets/arrow-circle-right.svg';
+import './Sidebar.css'; // Sidebar.css import
 
-const Sidebar = () => {
+const Sidebar = ({ isCollapsed, onToggle }) => {
+
   const chatHistory = [
     { id: 1, title: '두통과 어지러움' },
     { id: 2, title: '소화 불량' },
@@ -16,28 +20,37 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isCollapsed ? 'sidebar--collapsed' : ''}`}>
       <div className="sidebar-header">
-                {/* <img src={logo} alt="약지기 로고" className="sidebar-logo" /> */}
+        <img src={logo} alt="약지기 로고" className="sidebar-logo" />
+        <button onClick={onToggle} className="sidebar-toggle-btn">
+          {isCollapsed ? <ArrowCircleRight /> : <ArrowCircleLeft />}
+        </button>'
       </div>
       <div className="sidebar-new-chat">
-        <button>
-          <FaPlus /> 새 대화 시작
-        </button>
+        {!isCollapsed && (
+          <button>
+            <FaPlus /> 새 대화 시작
+          </button>
+        )}
       </div>
       <div className="sidebar-history">
-        {chatHistory.map((chat) => (
-          <div key={chat.id} className="sidebar-chat-item">
-            <FaCommentDots />
-            <span>{chat.title}</span>
-          </div>
-        ))}
+        {!isCollapsed &&
+          chatHistory.map((chat) => (
+            <div key={chat.id} className="sidebar-chat-item">
+              <FaCommentDots />
+              <span>{chat.title}</span>
+            </div>
+          ))}
       </div>
       <div className="sidebar-bottom">
-        <button>
-          <FaMapMarkerAlt /> 가까운 약국 찾기
-        </button>
+        {!isCollapsed && (
+          <button>
+            <FaMapMarkerAlt /> 가까운 약국 찾기
+          </button>
+        )}
       </div>
+    
     </div>
   );
 };
