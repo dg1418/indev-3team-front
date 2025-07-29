@@ -3,7 +3,7 @@
  * @description 채팅이 시작되기 전 사용자에게 보여지는 초기 프롬프트 화면 컴포넌트입니다.
  *              증상 입력 유도 메시지와 함께 예시 증상 버튼들을 제공하여 사용자의 입력을 돕습니다.
  */
-import React from 'react';
+import React, { useState } from 'react';
 
 const InitialPrompt = () => {
   const symptomExamples = [
@@ -11,13 +11,27 @@ const InitialPrompt = () => {
     '기침', '발열', '피로감', '근육통', '관절통', '메스꺼움', '설사', '어지러움'
   ];
 
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+
+  const toggleSymptom = (symptom) => {
+    setSelectedSymptoms(prev =>
+      prev.includes(symptom)
+        ? prev.filter(s => s !== symptom)
+        : [...prev, symptom]
+    );
+  };
+
   return (
     <div className="initial-prompt">
       <h2>무슨 증상이 있으신가요?</h2>
       <p>느껴지는 증상을 입력하세요.</p>
       <div className="symptom-examples">
         {symptomExamples.map((symptom, index) => (
-          <button key={index} className="symptom-button">
+          <button
+            key={index}
+            className={`symptom-button ${selectedSymptoms.includes(symptom) ? 'selected' : ''}`}
+            onClick={() => toggleSymptom(symptom)}
+          >
             {symptom}
           </button>
         ))}

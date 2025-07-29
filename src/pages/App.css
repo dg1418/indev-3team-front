@@ -46,3 +46,92 @@
   text-align: center;
   margin-top: 10px;
 }
+
+/* InitialPrompt.css */
+
+.initial-prompt {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+}
+
+.initial-prompt h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.initial-prompt p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.symptom-examples {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.symptom-button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.symptom-button.selected {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.initial-prompt-footer {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #888;
+}
+
+/* ChatWindow.css */
+
+.chat-window {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+/* SymptomInput.css */
+
+.symptom-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.symptom-input input {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px 15px;
+  margin-right: 10px;
+}
+
+.symptom-input button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.symptom-input button:hover {
+  background-color: #0056b3;
+}
