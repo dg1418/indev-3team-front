@@ -56,6 +56,7 @@
   padding: 0;
 }
 
+/* '닫기' 버튼의 SVG 아이콘 스타일 */
 .sidebar-close-btn svg {
   width: 24px;
   height: 24px;
@@ -78,20 +79,24 @@
   transition: background-color 0.2s ease;
 }
 
+/* '새 채팅' 버튼과 하단 버튼의 hover 효과 */
 .sidebar-new-chat button:hover, .sidebar-bottom button:hover {
   background-color: #4a4f57;
 }
 
+/* '새 채팅' 버튼과 하단 버튼의 SVG 아이콘 스타일 */
 .sidebar-new-chat button svg, .sidebar-bottom button svg {
   margin-right: 10px;
 }
 
+/* 사이드바 채팅 목록 스타일 */
 .sidebar-history {
   flex-grow: 1;
   margin-top: 20px;
   overflow-y: auto;
 }
 
+/* 사이드바 채팅 아이템 스타일 */
 .sidebar-chat-item {
   padding: 12px 15px;
   margin-bottom: 8px;
@@ -111,6 +116,7 @@
   margin-right: 10px;
 }
 
+/* 사이드바 하단 버튼 스타일 */
 .sidebar-bottom {
   margin-top: auto; /* 하단에 고정 */
   padding-top: 15px;
