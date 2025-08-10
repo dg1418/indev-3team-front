@@ -101,10 +101,13 @@
 .chat-window {
   flex-grow: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 20px 40px; /* 좌우 패딩 추가 */
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* 메시지 사이의 간격 */
 }
 
 /* SymptomInput.css */
@@ -135,3 +138,42 @@
 .symptom-input button:hover {
   background-color: #007660;
 }
+
+/* Message.css */
+
+
+
+.message {
+  max-width: 70%;
+  padding: 5px 15px; /* 패딩 조정 */
+  border-radius: 20px;
+  line-height: 1; /* 줄 간격 조정 */
+  word-wrap: break-word;
+  position: relative;
+}
+
+.message.user {
+  align-self: flex-end;
+  background-color: #00A86B; /* 사용자 메시지 색상 */
+  color: white;
+  border-bottom-right-radius: 5px; /* 꼬리 모양 효과 */
+}
+
+.message.ai {
+  align-self: flex-start;
+  background-color: #f1f0f0; /* ChatGPT 봇 메시지 색상과 유사하게 */
+  color: #333;
+  border-bottom-left-radius: 5px; /* 꼬리 모양 효과 */
+  padding-left: 15px; /* 아이콘을 위한 내부 여백 */
+}
+
+/* AI 메시지에 아이콘 추가 */
+.message.ai::before {
+  content: '🤖'; /* 간단한 로봇 이모지 아이콘 */
+  position: absolute;
+  left: -32px; /* 이모지와 ai 메시지창의 간격조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
