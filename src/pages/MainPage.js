@@ -40,15 +40,16 @@ const MainPage = () => {
 
   return (
     <div className="main-layout-container">
-      {/* Sidebar에 상태, 닫기 함수, 새 대화 시작 함수를 props로 전달 */}
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} onNewChat={handleNewChat} />
 
-      {/* 사이드바가 닫혀 있을 때만 '열기' 버튼을 표시 */}
-      {!isSidebarOpen && (
-        <button className="sidebar-open-btn" onClick={toggleSidebar}>
-          <ArrowCircleRight />
-        </button>
-      )}
+      {/* 사이드바가 닫혔을 때, 열기 버튼을 표시하는 영역 */}
+      <div className="sidebar-column">
+        {!isSidebarOpen && (
+          <button className="sidebar-open-btn" onClick={toggleSidebar}>
+            <ArrowCircleRight />
+          </button>
+        )}
+      </div>
 
       <div className="chat-wrapper">
         <div className="chat-container">
