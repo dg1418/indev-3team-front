@@ -21,11 +21,8 @@ const MainPage = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleSendMessage = (text) => {
-    if (text.trim()) {
-      setMessages((prevMessages) => [...prevMessages, { id: Date.now(), text, sender: 'user' }]);
-      // TODO: 여기에 AI 응답 로직 추가
-    }
+  const handleSendMessage = (message) => {
+    setMessages((prevMessages) => [...prevMessages, { ...message, id: Date.now() }]);
   };
 
   return (
