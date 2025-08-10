@@ -53,7 +53,7 @@ const MainPage = () => {
 
       <div className="chat-wrapper">
         <div className="chat-container">
-          <div className="chat-area" ref={chatAreaRef}>
+          <div className={`chat-area ${messages.length > 0 ? 'has-messages' : ''}`} ref={chatAreaRef}>
             {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
           </div>
           <SymptomInput onSendMessage={handleSendMessage} />

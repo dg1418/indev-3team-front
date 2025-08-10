@@ -1,45 +1,52 @@
 /**
  * @file InitialPrompt.js
- * @description 채팅이 시작되기 전 사용자에게 보여지는 초기 프롬프트 화면 컴포넌트입니다.
- *              증상 입력 유도 메시지와 함께 예시 증상 버튼들을 제공하여 사용자의 입력을 돕습니다.
+ * @description 채팅이 시작되기 전 초기 화면을 담당하는 컴포넌트입니다.
+ *              메인 제목, 설명 텍스트, 증상 버튼들, 그리고 예시 텍스트를 렌더링합니다.
  */
 import React, { useState } from 'react';
 
 const InitialPrompt = () => {
-  const symptomExamples = [
-    '두통', '복통', '치통', '구토', '콧물', '코막힘',
-    '기침', '발열', '피로감', '근육통', '관절통', '메스꺼움', '설사', '어지러움'
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+  
+  const symptomButtons = [
+    '두통', '복통', '치통', '구토', '콧물', '코막힘', '기침', '발열', '피로감', '근육통',
+    '관절통', '메스꺼움', '설사', '어지러움'
   ];
 
-  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
-
-  const toggleSymptom = (symptom) => {
-    setSelectedSymptoms(prev =>
-      prev.includes(symptom)
-        ? prev.filter(s => s !== symptom)
-        : [...prev, symptom]
-    );
+  // 증상 버튼 클릭 핸들러
+  const handleSymptomClick = (symptom) => {
+    setSelectedSymptoms(prev => {
+      if (prev.includes(symptom)) {
+        // 이미 선택된 증상이면 제거
+        return prev.filter(s => s !== symptom);
+      } else {
+        // 선택되지 않은 증상이면 추가
+        return [...prev, symptom];
+      }
+    });
   };
 
   return (
     <div className="initial-prompt">
-      <h2>무슨 증상이 있으신가요?</h2>
+      <h1>무슨 증상이 있으신가요?</h1>
       <p>느껴지는 증상을 입력하세요.</p>
-      <div className="symptom-examples">
-        {symptomExamples.map((symptom, index) => (
-          <button
-            key={index}
+      
+      <div className="symptom-buttons">
+        {symptomButtons.map((symptom, index) => (
+          <button 
+            key={index} 
             className={`symptom-button ${selectedSymptoms.includes(symptom) ? 'selected' : ''}`}
-            onClick={() => toggleSymptom(symptom)}
+            onClick={() => handleSymptomClick(symptom)}
           >
             {symptom}
           </button>
         ))}
       </div>
-      <div className="initial-prompt-footer">
-        <p>자세한 증상을 적어주시면 더 정확한 정보를 드릴 수 있습니다.</p>
-        <p>예시: "머리가 아파요", "배가 아파요"</p>
-        
+      
+      <div className="example-text">
+        자세한 증상을 적어주시면 더 정확한 정보를 드릴 수 있습니다.
+        <br />
+        예시: "머리가 아파요", "배가 아파요"
       </div>
     </div>
   );

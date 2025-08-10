@@ -3,8 +3,8 @@
 .main-layout-container {
   display: flex;
   height: 100vh;
-  position: relative; /* 자식 요소의 absolute 포지셔닝을 위한 기준 */
-  overflow: hidden; /* 사이드바가 튀어나가지 않도록 설정 */
+  position: relative;
+  overflow: hidden;
 }
 
 /* 사이드바 열기 버튼을 위한 별도의 칼럼 */
@@ -24,17 +24,17 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  min-width: 0;
+  min-width: 0; /* flex-grow가 제대로 작동하도록 설정 */
 }
 
 .chat-container {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  height: 100%; /* 전체 높이를 차지하도록 설정 */
+  height: 100%;
 }
 
-/* 사이드바 '열기' 버튼 스타일 */
+/* 사이드바 '열기' 버튼 스타일 - position을 static으로 변경 */
 .sidebar-open-btn {
   background-color: #00A86B;
   border: none;
@@ -49,35 +49,44 @@
 }
 
 .sidebar-open-btn:hover {
-  background-color: #007660; /* 호버 시 배경색 */
+  background-color: #007660;
 }
 
 .sidebar-open-btn svg {
   width: 24px;
   height: 24px;
-  filter: invert(1); /* 아이콘 색상을 흰색으로 변경 */
+  filter: invert(1);
 }
 
 /* ChatArea.css */
 .chat-area {
-  flex-grow: 1; /* 남은 공간을 모두 차지하도록 설정 */
-  overflow-y: auto; /* 세로 스크롤 가능 */
-  min-height: 0; /* 부모 요소의 높이에 맞춰 자식 요소가 늘어나도록 설정 */
-  padding: 20px 40px; /* 패딩 추가 */
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 40px;
   background-color: #fff; 
   border: 1px solid #e0e0e0; 
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 초기 프롬프트일 때 중앙 정렬 */
+  align-items: center;
+}
+
+/* 채팅이 시작된 후에는 일반적인 레이아웃으로 변경 */
+.chat-area.has-messages {
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 /* ChatWindow.css */
 .chat-window {
-  display: flex; /* 메시지들을 세로로 정렬 */
+  display: flex;
   flex-direction: column; 
-  gap: 15px; /* 메시지 사이의 간격 */
+  gap: 15px;
 }
 
 /* SymptomInput.css */
-
 .symptom-input {
   display: flex;
   padding: 10px;
@@ -106,36 +115,34 @@
 }
 
 /* Message.css */
-
 .message {
   max-width: 70%;
-  padding: 5px 15px; /* 패딩 조정 */
+  padding: 5px 15px;
   border-radius: 20px;
-  line-height: 1; /* 줄 간격 조정 */
+  line-height: 1;
   word-wrap: break-word;
   position: relative;
 }
 
 .message.user {
   align-self: flex-end;
-  background-color: #00A86B; /* 사용자 메시지 색상 */
+  background-color: #00A86B;
   color: white;
-  border-bottom-right-radius: 5px; /* 꼬리 모양 효과 */
+  border-bottom-right-radius: 5px;
 }
 
 .message.ai {
   align-self: flex-start;
-  background-color: #f1f0f0; /* ChatGPT 봇 메시지 색상과 유사하게 */
+  background-color: #f1f0f0;
   color: #333;
-  border-bottom-left-radius: 5px; /* 꼬리 모양 효과 */
-  padding-left: 15px; /* 아이콘을 위한 내부 여백 */
+  border-bottom-left-radius: 5px;
+  padding-left: 15px;
 }
 
-/* AI 메시지에 아이콘 추가 */
 .message.ai::before {
-  content: '🤖'; /* 간단한 로봇 이모지 아이콘 */
+  content: '🤖';
   position: absolute;
-  left: -32px; /* 이모지와 ai 메시지창의 간격조정 */
+  left: -32px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 20px;
@@ -148,4 +155,80 @@
   text-align: center;
   margin-top: 10px;
   padding: 0 20px;
+}
+
+/* InitialPrompt.css - 초기 화면 스타일 */
+.initial-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.initial-prompt h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.initial-prompt p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+/* 증상 버튼들 컨테이너 */
+.symptom-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.symptom-button {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 25px;
+  padding: 12px 24px;
+  font-size: 14px;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.symptom-button:hover {
+  background-color: #00A86B;
+  color: white;
+  border-color: #00A86B;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 168, 107, 0.2);
+}
+
+/* 선택된 상태의 증상 버튼 스타일 */
+.symptom-button.selected {
+  background-color: #00A86B;
+  color: white;
+  border-color: #00A86B;
+  box-shadow: 0 2px 8px rgba(0, 168, 107, 0.3);
+}
+
+.symptom-button.selected:hover {
+  background-color: #007660;
+  border-color: #007660;
+}
+
+/* 예시 텍스트 스타일 */
+.example-text {
+  font-size: 1rem;
+  color: #868e96;
+  margin-top: 20px;
 }
