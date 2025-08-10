@@ -25,10 +25,15 @@ const MainPage = () => {
     setMessages((prevMessages) => [...prevMessages, { ...message, id: Date.now() }]);
   };
 
+  // "새 대화 시작"을 처리하는 함수
+  const handleNewChat = () => {
+    setMessages([]);
+  };
+
   return (
     <div className="main-layout-container">
-      {/* Sidebar에 상태와 닫기 함수를 props로 전달 */}
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      {/* Sidebar에 상태, 닫기 함수, 새 대화 시작 함수를 props로 전달 */}
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} onNewChat={handleNewChat} />
 
       {/* 사이드바가 닫혀 있을 때만 '열기' 버튼을 표시 */}
       {!isSidebarOpen && (

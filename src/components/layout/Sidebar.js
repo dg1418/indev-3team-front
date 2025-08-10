@@ -10,7 +10,7 @@ import { ReactComponent as ArrowCircleLeft } from '../../assets/arrow-circle-lef
 import './Sidebar.css';
 
 // isOpen: 사이드바 열림 상태, onClose: 사이드바 닫기 함수
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = ({ isOpen, onClose, onNewChat }) => {
   const chatHistory = [
     { id: 1, title: '두통과 어지러움' },
     { id: 2, title: '소화 불량' },
@@ -43,7 +43,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
         {/* 아래 내용은 이전과 동일 */}
         <div className="sidebar-new-chat">
-          <button>
+          <button onClick={onNewChat}>
             <FaPlus /> 새 대화 시작
           </button>
         </div>
