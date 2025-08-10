@@ -4,7 +4,7 @@
  *              사이드바와 채팅 인터페이스(초기 프롬프트, 채팅창, 입력창)를 통합하여 렌더링합니다.
  *              사용자의 메시지 상태를 관리하고, 메시지 전송 핸들러를 하위 컴포넌트에 전달합니다.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from '../components/layout/Sidebar';
 import ChatWindow from '../components/chat/ChatWindow';
 import SymptomInput from '../components/chat/SymptomInput';
@@ -14,7 +14,15 @@ import './App.css';
 
 const MainPage = () => {
   const [messages, setMessages] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // 사이드바 상태를 '열림' 기준으로 관리 (초기값: 닫힘)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const chatAreaRef = useRef(null); // 스크롤 제어를 위한 ref 생성
+
+  // 새 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
+  useEffect(() => {
+    if (chatAreaRef.current) {
+      chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   // 사이드바 상태를 토글하는 함수
   const toggleSidebar = () => {
@@ -43,8 +51,10 @@ const MainPage = () => {
       )}
 
       <div className="chat-wrapper">
-        <div className="chat-container" style={{ flexGrow: 1 }}>
-          {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
+        <div className="chat-container">
+          <div className="chat-area" ref={chatAreaRef}>
+            {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
+          </div>
           <SymptomInput onSendMessage={handleSendMessage} />
           <p className="disclaimer-text">※ 약지기의 ChatBot은 잘못된 정보를 제공할 가능성이 있습니다. 제공된 정보를 맹신하지 마십시오.</p>
         </div>
