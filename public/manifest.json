@@ -1,19 +1,26 @@
+/**
+ * @file manifest.json
+ * @description 웹 애플리케이션 매니페스트 파일로, 웹 앱의 메타데이터를 정의합니다.
+ *              홈 화면에 추가될 때의 아이콘, 앱 이름, 시작 URL, 디스플레이 모드, 테마 색상 등을 설정하여
+ *              프로그레시브 웹 앱(PWA)의 기능을 제공하는 데 사용됩니다.
+ */
+
 {
   "short_name": "React App",
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "favicon01.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
     },
     {
-      "src": "logo192.png",
+      "src": "favicon01.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "favicon01.png",
       "type": "image/png",
       "sizes": "512x512"
     }

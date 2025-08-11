@@ -1,25 +1,13 @@
-import logo from '../assets/images/logo.svg';
-import './App.css';
+/**
+ * @file App.js
+ * @description React 애플리케이션의 최상위 컴포넌트입니다.
+ *              주로 `MainPage` 컴포넌트를 렌더링하여 전체 애플리케이션의 진입점 역할을 합니다.
+ */
+import React from 'react';
+import MainPage from './MainPage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <MainPage />;
 }
 
 export default App;
