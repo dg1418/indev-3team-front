@@ -7,6 +7,13 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+// MSW 초기화 코드 추가
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser');
+  worker.start();
+}
+
 import './styles/index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';

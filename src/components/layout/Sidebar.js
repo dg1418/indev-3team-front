@@ -10,11 +10,20 @@ import { ReactComponent as ArrowCircleLeft } from '../../assets/arrow-circle-lef
 import './Sidebar.css';
 
 // isOpen: 사이드바 열림 상태, onClose: 사이드바 닫기 함수
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = ({ isOpen, onClose, onNewChat }) => {
   const chatHistory = [
     { id: 1, title: '두통과 어지러움' },
     { id: 2, title: '소화 불량' },
     { id: 3, title: '피부 발진' },
+    { id: 4, title: '감기 증상 상담' },
+    { id: 5, title: '복통 및 설사' },
+    { id: 6, title: '불면증 치료' },
+    { id: 7, title: '알레르기 반응' },
+    { id: 8, title: '근육통 완화' },
+    { id: 9, title: '위염 증상' },
+    { id: 10, title: '기침과 가래' },
+    { id: 11, title: '관절염 통증' },
+    { id: 12, title: '스트레스성 두드러기' }
   ];
 
   return (
@@ -34,7 +43,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
         {/* 아래 내용은 이전과 동일 */}
         <div className="sidebar-new-chat">
-          <button>
+          <button onClick={onNewChat}>
             <FaPlus /> 새 대화 시작
           </button>
         </div>
@@ -50,6 +59,14 @@ const Sidebar = ({ isOpen, onClose }) => {
           <button>
             <FaMapMarkerAlt /> 가까운 약국 찾기
           </button>
+          {/* 약국 목록을 별도의 div로 감싸고 클래스 추가 */}
+          <div className="pharmacy-list">
+            <p>메디컬약국 550m</p>
+            <p>온누리약국 700m</p>
+            <p>희망약국 850m</p>
+            <p>미래약국 1.2km</p>
+            <p>대학약국 1.5km</p>
+          </div>
         </div>
       </div>
     </>

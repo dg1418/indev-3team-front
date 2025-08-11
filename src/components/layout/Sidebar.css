@@ -56,6 +56,7 @@
   padding: 0;
 }
 
+/* '닫기' 버튼의 SVG 아이콘 스타일 */
 .sidebar-close-btn svg {
   width: 24px;
   height: 24px;
@@ -66,7 +67,7 @@
 .sidebar-new-chat button, .sidebar-bottom button {
   width: 100%;
   padding: 12px 15px;
-  background-color: #3a3f47;
+  background-color: #00A86B;
   border: 1px solid #555;
   border-radius: 8px;
   color: #e0e0e0;
@@ -78,20 +79,45 @@
   transition: background-color 0.2s ease;
 }
 
+/* '새 채팅' 버튼과 하단 버튼의 hover 효과 */
 .sidebar-new-chat button:hover, .sidebar-bottom button:hover {
-  background-color: #4a4f57;
+  background-color: #007660;
 }
 
+/* '새 채팅' 버튼과 하단 버튼의 SVG 아이콘 스타일 */
 .sidebar-new-chat button svg, .sidebar-bottom button svg {
   margin-right: 10px;
 }
 
+/* 사이드바 채팅 목록 스타일 */
 .sidebar-history {
   flex-grow: 1;
   margin-top: 20px;
-  overflow-y: auto;
+  overflow-y: auto; /* 스크롤 가능하도록 설정 */
+  padding-right: 10px; /* 스크롤바 공간 확보 */
+  min-height: 0;
 }
 
+/* 스크롤바 스타일링 */
+.sidebar-history::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-history::-webkit-scrollbar-track {
+  background: #2f3136;
+          border-radius: 3px;
+        }
+
+.sidebar-history::-webkit-scrollbar-thumb {
+  background: #555;
+          border-radius: 3px;
+        }
+
+.sidebar-history::-webkit-scrollbar-thumb:hover {
+  background: #666;
+          border-radius: 3px;
+}
+
+/* 사이드바 채팅 아이템 스타일 */
 .sidebar-chat-item {
   padding: 12px 15px;
   margin-bottom: 8px;
@@ -111,8 +137,46 @@
   margin-right: 10px;
 }
 
+/* 사이드바 하단 버튼 스타일 */
 .sidebar-bottom {
-  margin-top: auto; /* 하단에 고정 */
-  padding-top: 15px;
+  flex-shrink: 0; /* 하단 버튼 영역은 축소되지 않도록 설정 */
+  padding: 15px 0; /* 상단과 하단에 적절한 패딩 적용 */
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 정렬 */
   border-top: 1px solid #333;
+  margin-top: 15px;
+  max-height: 250px; /* 최대 높이 지정 */
+  overflow-y: auto; /* 내용이 많아지면 스크롤 생성 */
+  padding-right: 10px; /* 스크롤바 공간 확보 */
+}
+
+/* 약국 목록 스타일 추가 */
+.pharmacy-list {
+  margin-top: 15px;
+}
+
+.pharmacy-list p {
+  padding: 10px 15px;
+  margin: 0 0 8px;
+  background-color: #2f3136;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #e0e0e0; 
+}
+
+/* 스크롤바 스타일링 (sidebar-history와 동일하게 적용) */
+.sidebar-bottom::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-bottom::-webkit-scrollbar-track {
+  background: #2f3136;
+  border-radius: 3px;
+}
+.sidebar-bottom::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+.sidebar-bottom::-webkit-scrollbar-thumb:hover {
+  background: #666;
+  border-radius: 3px;
 }

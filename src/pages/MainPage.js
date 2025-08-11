@@ -4,7 +4,7 @@
  *              사이드바와 채팅 인터페이스(초기 프롬프트, 채팅창, 입력창)를 통합하여 렌더링합니다.
  *              사용자의 메시지 상태를 관리하고, 메시지 전송 핸들러를 하위 컴포넌트에 전달합니다.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from '../components/layout/Sidebar';
 import ChatWindow from '../components/chat/ChatWindow';
 import SymptomInput from '../components/chat/SymptomInput';
@@ -14,35 +14,48 @@ import './App.css';
 
 const MainPage = () => {
   const [messages, setMessages] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // 사이드바 상태를 '열림' 기준으로 관리 (초기값: 닫힘)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const chatAreaRef = useRef(null); // 스크롤 제어를 위한 ref 생성
+
+  // 새 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
+  useEffect(() => {
+    if (chatAreaRef.current) {
+      chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   // 사이드바 상태를 토글하는 함수
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleSendMessage = (text) => {
-    if (text.trim()) {
-      setMessages((prevMessages) => [...prevMessages, { id: Date.now(), text, sender: 'user' }]);
-      // TODO: 여기에 AI 응답 로직 추가
-    }
+  const handleSendMessage = (message) => {
+    setMessages((prevMessages) => [...prevMessages, { ...message, id: Date.now() }]);
+  };
+
+  // "새 대화 시작"을 처리하는 함수
+  const handleNewChat = () => {
+    setMessages([]);
   };
 
   return (
     <div className="main-layout-container">
-      {/* Sidebar에 상태와 닫기 함수를 props로 전달 */}
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} onNewChat={handleNewChat} />
 
-      {/* 사이드바가 닫혀 있을 때만 '열기' 버튼을 표시 */}
-      {!isSidebarOpen && (
-        <button className="sidebar-open-btn" onClick={toggleSidebar}>
-          <ArrowCircleRight />
-        </button>
-      )}
+      {/* 사이드바가 닫혔을 때, 열기 버튼을 표시하는 영역 */}
+      <div className="sidebar-column">
+        {!isSidebarOpen && (
+          <button className="sidebar-open-btn" onClick={toggleSidebar}>
+            <ArrowCircleRight />
+          </button>
+        )}
+      </div>
 
       <div className="chat-wrapper">
-        <div className="chat-container" style={{ flexGrow: 1 }}>
-          {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
+        <div className="chat-container">
+          <div className={`chat-area ${messages.length > 0 ? 'has-messages' : ''}`} ref={chatAreaRef}>
+            {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
+          </div>
           <SymptomInput onSendMessage={handleSendMessage} />
           <p className="disclaimer-text">※ 약지기의 ChatBot은 잘못된 정보를 제공할 가능성이 있습니다. 제공된 정보를 맹신하지 마십시오.</p>
         </div>

@@ -3,46 +3,232 @@
 .main-layout-container {
   display: flex;
   height: 100vh;
-  position: relative; /* 자식 요소의 absolute 포지셔닝을 위한 기준 */
-  overflow: hidden; /* 사이드바가 튀어나가지 않도록 설정 */
+  position: relative;
+  overflow: hidden;
+}
+
+/* 사이드바 열기 버튼을 위한 별도의 칼럼 */
+.sidebar-column {
+  width: 60px; /* 고정 너비 */
+  flex-shrink: 0; /* 축소되지 않도록 설정 */
+  background-color: #f8f9fa; /* 구분을 위한 배경색 */
+  border-right: 1px solid #e0e0e0; /* 경계선 추가 */
+  display: flex;
+  align-items: flex-start; /* 상단 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  padding-top: 20px; /* 상단 여백 */
 }
 
 .chat-wrapper {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  transition: margin-left 0.3s ease;
   padding: 20px;
+  min-width: 0; /* flex-grow가 제대로 작동하도록 설정 */
 }
 
 .chat-container {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height: 100%;
 }
 
-/* 사이드바 '열기' 버튼 스타일 */
+/* 사이드바 '열기' 버튼 스타일 - position을 static으로 변경 */
 .sidebar-open-btn {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: none;
+  background-color: #00A86B;
   border: none;
+  border-radius: 50%;
+  padding: 8px;
   cursor: pointer;
-  padding: 0;
-  z-index: 1050; /* 사이드바보다 위에 있도록 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  /* position과 z-index 제거 */
+}
+
+.sidebar-open-btn:hover {
+  background-color: #007660;
 }
 
 .sidebar-open-btn svg {
   width: 24px;
   height: 24px;
-  /* filter: invert(1); 제거하여 아이콘 색상 변경 */
+  filter: invert(1);
 }
 
+/* ChatArea.css */
+.chat-area {
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 40px;
+  background-color: #fff; 
+  border: 1px solid #e0e0e0; 
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 초기 프롬프트일 때 중앙 정렬 */
+  align-items: center;
+}
+
+/* 채팅이 시작된 후에는 일반적인 레이아웃으로 변경 */
+.chat-area.has-messages {
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+/* ChatWindow.css */
+.chat-window {
+  display: flex;
+  flex-direction: column; 
+  gap: 15px;
+}
+
+/* SymptomInput.css */
+.symptom-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #e0e0e0; 
+}
+
+.symptom-input input {
+  flex-grow: 1;
+  border: 1px solid #ccc; 
+  border-radius: 20px;
+  padding: 10px 15px;
+  margin-right: 10px;
+}
+
+.symptom-input button {
+  background-color: #00A86B;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.symptom-input button:hover {
+  background-color: #007660;
+}
+
+/* Message.css */
+.message {
+  max-width: 70%;
+  padding: 5px 15px;
+  border-radius: 20px;
+  line-height: 1;
+  word-wrap: break-word;
+  position: relative;
+}
+
+.message.user {
+  align-self: flex-end;
+  background-color: #00A86B;
+  color: white;
+  border-bottom-right-radius: 5px;
+}
+
+.message.ai {
+  align-self: flex-start;
+  background-color: #f1f0f0;
+  color: #333;
+  border-bottom-left-radius: 5px;
+  padding-left: 15px;
+}
+
+.message.ai::before {
+  content: '🤖';
+  position: absolute;
+  left: -32px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+/* 하단 주의사항 텍스트 스타일 */
 .disclaimer-text {
   font-size: 12px;
-  color: #888;
+  color: #666;
   text-align: center;
   margin-top: 10px;
+  padding: 0 20px;
+}
+
+/* InitialPrompt.css - 초기 화면 스타일 */
+.initial-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.initial-prompt h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.initial-prompt p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+/* 증상 버튼들 컨테이너 */
+.symptom-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.symptom-button {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 25px;
+  padding: 12px 24px;
+  font-size: 14px;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.symptom-button:hover {
+  background-color: #00A86B;
+  color: white;
+  border-color: #00A86B;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 168, 107, 0.2);
+}
+
+/* 선택된 상태의 증상 버튼 스타일 */
+.symptom-button.selected {
+  background-color: #00A86B;
+  color: white;
+  border-color: #00A86B;
+  box-shadow: 0 2px 8px rgba(0, 168, 107, 0.3);
+}
+
+.symptom-button.selected:hover {
+  background-color: #007660;
+  border-color: #007660;
+}
+
+/* 예시 텍스트 스타일 */
+.example-text {
+  font-size: 1rem;
+  color: #868e96;
+  margin-top: 20px;
 }
