@@ -5,18 +5,18 @@
  *              애플리케이션의 시작점 역할을 합니다.
  */
 
+// 모든 import문을 파일 상단에 배치
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom/client';  // React 18+ 버전에 맞는 import
+import './styles/index.css';
+import App from './pages/App';
+import reportWebVitals from './reportWebVitals';
 
-// MSW 초기화 코드 추가
+// MSW 초기화 코드
 if (process.env.NODE_ENV === 'development') {
   const { worker } = require('./mocks/browser');
   worker.start();
 }
-
-import './styles/index.css';
-import App from './pages/App';
-import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
