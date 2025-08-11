@@ -22,7 +22,7 @@ const Message = ({ text, sender }) => {
         } else {
           clearInterval(typingInterval);
         }
-      }, 50); // 40ms 간격으로 한 글자씩 나타납니다.
+      }, 40); // 40ms 간격으로 한 글자씩 나타납니다.
 
       // 컴포넌트가 언마운트되거나 text가 변경될 때 interval을 정리합니다.
       return () => clearInterval(typingInterval);
