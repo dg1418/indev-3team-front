@@ -67,7 +67,7 @@
 .sidebar-new-chat button, .sidebar-bottom button {
   width: 100%;
   padding: 12px 15px;
-  background-color: #3a3f47;
+  background-color: #00A86B;
   border: 1px solid #555;
   border-radius: 8px;
   color: #e0e0e0;
@@ -81,7 +81,7 @@
 
 /* '새 채팅' 버튼과 하단 버튼의 hover 효과 */
 .sidebar-new-chat button:hover, .sidebar-bottom button:hover {
-  background-color: #4a4f57;
+  background-color: #007660;
 }
 
 /* '새 채팅' 버튼과 하단 버튼의 SVG 아이콘 스타일 */
@@ -161,7 +161,7 @@
   background-color: #2f3136;
   border-radius: 8px;
   font-size: 14px;
-  color: #e0e0e0;
+  color: #e0e0e0; 
 }
 
 /* 스크롤바 스타일링 (sidebar-history와 동일하게 적용) */
