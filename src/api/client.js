@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: "/api",
+  baseURL: "http://54.180.95.200:3000/api",
 });
 
 // Axios 요청 인터셉터: 요청 전에 헤더에 토큰 추가
