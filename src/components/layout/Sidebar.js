@@ -4,7 +4,7 @@
  *              로고, 새 대화 시작 버튼, 채팅 내역 목록, 그리고 가까운 약국 찾기 버튼을 포함합니다.
  */
 import React, { useState } from 'react';
-import { FaPlus, FaCommentDots, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaPlus, FaCommentDots, FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
 import logo from '../../assets/images/logo.svg';
 import { ReactComponent as ArrowCircleLeft } from '../../assets/arrow-circle-left.svg';
 import './Sidebar.css';
@@ -12,6 +12,7 @@ import './Sidebar.css';
 // isOpen: 사이드바 열림 상태, onClose: 사이드바 닫기 함수
 const Sidebar = ({ isOpen, onClose, onNewChat }) => {
   const [isTooltipVisible, setTooltipVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const chatHistory = [
     { id: 1, title: '두통과 어지러움' },
@@ -27,6 +28,11 @@ const Sidebar = ({ isOpen, onClose, onNewChat }) => {
     { id: 11, title: '관절염 통증' },
     { id: 12, title: '스트레스성 두드러기' }
   ];
+
+  // 검색어에 따라 채팅 내역 필터링
+  const filteredHistory = chatHistory.filter(chat => 
+    chat.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     // isOpen 상태에 따라 클래스와 오버레이를 동적으로 제어
@@ -56,9 +62,21 @@ const Sidebar = ({ isOpen, onClose, onNewChat }) => {
           </button>
         </div>
 
-        <h4 className="sidebar-section-title">지난 대화</h4>
+        <div className="sidebar-section-header">
+          <h4 className="sidebar-section-title">지난 대화</h4>
+          <div className="search-container">
+            <FaSearch className="search-icon" />
+            <input 
+              type="text"
+              placeholder="검색..."
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
         <div className="sidebar-history">
-          {chatHistory.map((chat) => (
+          {filteredHistory.map((chat) => (
             <div key={chat.id} className="sidebar-chat-item">
               <FaCommentDots />
               <span>{chat.title}</span>

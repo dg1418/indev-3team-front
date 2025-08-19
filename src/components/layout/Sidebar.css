@@ -85,14 +85,56 @@
   filter: invert(1);
 }
 
-/* 섹션 제목 스타일 */
-.sidebar-section-title {
-  font-size: 14px;
-  color: #a0a0a0; /* 밝은 회색으로 변경 */
+/* 섹션 헤더 스타일 (제목과 검색창 포함) */
+.sidebar-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 15px;
   margin-bottom: 10px;
+}
+
+.sidebar-section-title {
+  font-size: 14px;
+  color: #a0a0a0;
   padding-left: 5px;
-  font-weight: 500; /* 약간 굵게 */
+  font-weight: 500;
+  margin: 0; /* 헤더 컨테이너에서 마진을 관리하므로 초기화 */
+}
+
+/* 검색창 컨테이너 */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 8px;
+  color: #888;
+  font-size: 12px;
+}
+
+.search-input {
+  background-color: #3a3f47;
+  border: 1px solid #555;
+  border-radius: 15px;
+  color: #e0e0e0;
+  font-size: 12px;
+  padding: 4px 8px 4px 25px; /* 아이콘 공간 확보 */
+  width: 120px; /* 너비 조절 */
+  transition: width 0.2s ease-in-out, background-color 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  background-color: #4a4f57;
+  width: 140px; /* 포커스 시 너비 확장 */
+}
+
+.search-input::placeholder {
+  color: #888;
 }
 
 
