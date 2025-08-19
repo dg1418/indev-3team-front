@@ -34,6 +34,29 @@
   height: 100%;
 }
 
+/* 툴팁 컨테이너 */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* 툴팁 스타일 */
+.tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  margin-top: 8px;
+}
+
+
 /* 사이드바 '열기' 버튼 스타일 - position을 static으로 변경 */
 .sidebar-open-btn {
   background-color: #00A86B;

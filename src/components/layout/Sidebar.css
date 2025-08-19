@@ -48,6 +48,27 @@
   height: 50px;
 }
 
+/* 툴팁 컨테이너 */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* 툴팁 스타일 */
+.tooltip {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  margin-top: 8px;
+}
+
 /* 사이드바 '닫기' 버튼 */
 .sidebar-close-btn {
   background: none;

@@ -3,7 +3,7 @@
  * @description 애플리케이션의 왼쪽 사이드바 컴포넌트입니다.
  *              로고, 새 대화 시작 버튼, 채팅 내역 목록, 그리고 가까운 약국 찾기 버튼을 포함합니다.
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { FaPlus, FaCommentDots, FaMapMarkerAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo.svg';
 import { ReactComponent as ArrowCircleLeft } from '../../assets/arrow-circle-left.svg';
@@ -11,6 +11,8 @@ import './Sidebar.css';
 
 // isOpen: 사이드바 열림 상태, onClose: 사이드바 닫기 함수
 const Sidebar = ({ isOpen, onClose, onNewChat }) => {
+  const [isTooltipVisible, setTooltipVisible] = useState(false);
+
   const chatHistory = [
     { id: 1, title: '두통과 어지러움' },
     { id: 2, title: '소화 불량' },
@@ -36,9 +38,16 @@ const Sidebar = ({ isOpen, onClose, onNewChat }) => {
         <div className="sidebar-header">
           <img src={logo} alt="약지기 로고" className="sidebar-logo" />
           {/* 닫기 버튼: 클릭 시 onClose 함수 호출 */}
-          <button onClick={onClose} className="sidebar-close-btn">
-            <ArrowCircleLeft />
-          </button>
+          <div 
+            className="tooltip-container" 
+            onMouseEnter={() => setTooltipVisible(true)} 
+            onMouseLeave={() => setTooltipVisible(false)}
+          >
+            <button onClick={onClose} className="sidebar-close-btn">
+              <ArrowCircleLeft />
+            </button>
+            {isTooltipVisible && <div className="tooltip">사이드바 접기</div>}
+          </div>
         </div>
 
         {/* 아래 내용은 이전과 동일 */}

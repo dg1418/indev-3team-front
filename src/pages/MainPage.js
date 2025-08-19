@@ -15,6 +15,7 @@ import './App.css';
 const MainPage = () => {
   const [messages, setMessages] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isTooltipVisible, setTooltipVisible] = useState(false);
   const chatAreaRef = useRef(null); // 스크롤 제어를 위한 ref 생성
 
   // 새 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
@@ -45,9 +46,16 @@ const MainPage = () => {
       {/* 사이드바가 닫혔을 때, 열기 버튼을 표시하는 영역 */}
       <div className="sidebar-column">
         {!isSidebarOpen && (
-          <button className="sidebar-open-btn" onClick={toggleSidebar}>
-            <ArrowCircleRight />
-          </button>
+          <div 
+            className="tooltip-container" 
+            onMouseEnter={() => setTooltipVisible(true)} 
+            onMouseLeave={() => setTooltipVisible(false)}
+          >
+            <button className="sidebar-open-btn" onClick={toggleSidebar}>
+              <ArrowCircleRight />
+            </button>
+            {isTooltipVisible && <div className="tooltip">사이드바 열기</div>}
+          </div>
         )}
       </div>
 
