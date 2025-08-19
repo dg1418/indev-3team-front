@@ -50,12 +50,13 @@ const Sidebar = ({ isOpen, onClose, onNewChat }) => {
           </div>
         </div>
 
-        {/* 아래 내용은 이전과 동일 */}
         <div className="sidebar-new-chat">
           <button onClick={onNewChat}>
             <FaPlus /> 새 대화 시작
           </button>
         </div>
+
+        <h4 className="sidebar-section-title">지난 대화</h4>
         <div className="sidebar-history">
           {chatHistory.map((chat) => (
             <div key={chat.id} className="sidebar-chat-item">
@@ -64,11 +65,13 @@ const Sidebar = ({ isOpen, onClose, onNewChat }) => {
             </div>
           ))}
         </div>
+
         <div className="sidebar-bottom">
           <button>
             <FaMapMarkerAlt /> 가까운 약국 찾기
           </button>
           {/* 약국 목록을 별도의 div로 감싸고 클래스 추가 */}
+          <h4 className="sidebar-section-title">가까운 약국</h4>
           <div className="pharmacy-list">
             <p>메디컬약국 550m</p>
             <p>온누리약국 700m</p>

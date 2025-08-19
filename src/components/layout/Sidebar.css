@@ -85,6 +85,17 @@
   filter: invert(1);
 }
 
+/* 섹션 제목 스타일 */
+.sidebar-section-title {
+  font-size: 14px;
+  color: #a0a0a0; /* 밝은 회색으로 변경 */
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  font-weight: 500; /* 약간 굵게 */
+}
+
+
 /* 나머지 스타일은 이전과 거의 동일 */
 .sidebar-new-chat button, .sidebar-bottom button {
   width: 100%;
@@ -114,7 +125,7 @@
 /* 사이드바 채팅 목록 스타일 */
 .sidebar-history {
   flex-grow: 1;
-  margin-top: 20px;
+  /* margin-top: 20px; */ /* 섹션 제목과의 간격을 위해 제거 또는 조정 */
   overflow-y: auto; /* 스크롤 가능하도록 설정 */
   padding-right: 10px; /* 스크롤바 공간 확보 */
   min-height: 0;
@@ -174,7 +185,7 @@
 
 /* 약국 목록 스타일 추가 */
 .pharmacy-list {
-  margin-top: 15px;
+  margin-top: 1px; /* 섹션 제목과의 간격을 위해 조정 */
 }
 
 .pharmacy-list p {
