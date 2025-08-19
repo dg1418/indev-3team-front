@@ -28,6 +28,7 @@ const MainPage = () => {
   // 사이드바 상태를 토글하는 함수
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+    setTooltipVisible(false); // 툴팁 상태를 항상 초기화
   };
 
   const handleSendMessage = (message) => {
