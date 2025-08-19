@@ -54,18 +54,19 @@
   display: inline-block;
 }
 
-/* 툴팁 스타일 */
+/* 툴팁 스타일 (App.css와 일관성 유지) */
 .tooltip {
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #333;
   color: #fff;
   padding: 5px 10px;
   border-radius: 4px;
   font-size: 12px;
   white-space: nowrap;
-  z-index: 10;
+  z-index: 1200; /* 사이드바보다 위에 오도록 설정 */
   margin-top: 8px;
 }
 
