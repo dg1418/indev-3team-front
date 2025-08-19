@@ -227,7 +227,7 @@
 
 /* 약국 목록 스타일 추가 */
 .pharmacy-list {
-  margin-top: 1px; /* 섹션 제목과의 간격을 위해 조정 */
+  margin-top: 10px; /* 섹션 제목과의 간격을 위해 조정 */
 }
 
 .pharmacy-list p {
@@ -254,4 +254,10 @@
 .sidebar-bottom::-webkit-scrollbar-thumb:hover {
   background: #666;
   border-radius: 3px;
+}
+
+/* "가까운 약국" 소제목 간격 조정을 위한 추가 스타일 */
+.sidebar-bottom .sidebar-section-title {
+  margin-top: 8px; /* '가까운 약국 찾기' 버튼과의 간격 */
+  margin-bottom: 3px; /* 약국 목록과의 간격 */
 }
