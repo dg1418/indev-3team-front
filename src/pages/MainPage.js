@@ -3,7 +3,7 @@
  * @description 애플리케이션의 메인 레이아웃을 담당하는 컴포넌트입니다.
  *              사이드바와 채팅 인터페이스(초기 프롬프트, 채팅창, 입력창)를 통합하여 렌더링합니다.
  *              사용자의 메시지 상태를 관리하고, 메시지 전송 핸들러를 하위 컴포넌트에 전달합니다.
- *              입력창의 포커스 관리를 개선하여 연속적인 채팅 경험을 제공합니다.
+ *              입력창의 포커스 관리를 개선하고 스크롤바가 정확히 하단까지 추적하도록 개선합니다.
  */
 import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from '../components/layout/Sidebar';
@@ -19,13 +19,100 @@ const MainPage = () => {
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const chatAreaRef = useRef(null); // 스크롤 제어를 위한 ref 생성
   const symptomInputRef = useRef(null); // SymptomInput 컴포넌트에 대한 ref
+  const scrollTimeoutRef = useRef(null); // 스크롤 타이머를 위한 ref
 
-  // 새 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
+  // 스크롤을 하단으로 이동시키는 함수 (개선된 버전)
+  const scrollToBottom = () => {
+    if (!chatAreaRef.current) return;
+
+    const scrollElement = chatAreaRef.current;
+    
+    // 즉시 스크롤 시도
+    scrollElement.scrollTop = scrollElement.scrollHeight;
+    
+    // DOM 업데이트를 기다린 후 추가 스크롤 시도들
+    const scrollAttempts = [10, 50, 100, 200, 300, 500];
+    
+    scrollAttempts.forEach(delay => {
+      setTimeout(() => {
+        if (scrollElement) {
+          const currentScrollTop = scrollElement.scrollTop;
+          const maxScroll = scrollElement.scrollHeight - scrollElement.clientHeight;
+          
+          // 아직 끝까지 스크롤되지 않았다면 다시 시도
+          if (currentScrollTop < maxScroll) {
+            scrollElement.scrollTop = scrollElement.scrollHeight;
+          }
+        }
+      }, delay);
+    });
+
+    // RequestAnimationFrame을 사용한 추가 보정
+    const smoothScrollToBottom = () => {
+      if (scrollElement) {
+        const maxScroll = scrollElement.scrollHeight - scrollElement.clientHeight;
+        const currentScroll = scrollElement.scrollTop;
+        
+        if (currentScroll < maxScroll) {
+          scrollElement.scrollTop = scrollElement.scrollHeight;
+          requestAnimationFrame(smoothScrollToBottom);
+        }
+      }
+    };
+    
+    requestAnimationFrame(smoothScrollToBottom);
+  };
+
+  // 새 메시지가 추가될 때마다 스크롤을 맨 아래로 이동 (개선된 버전)
   useEffect(() => {
+    // 이전 타이머가 있다면 클리어
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    // 메시지가 추가되면 스크롤을 하단으로
+    scrollToBottom();
+
+    // MutationObserver를 사용하여 DOM 변경 사항을 감지하고 스크롤 조정
     if (chatAreaRef.current) {
-      chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+      const observer = new MutationObserver(() => {
+        scrollToBottom();
+      });
+
+      observer.observe(chatAreaRef.current, {
+        childList: true,
+        subtree: true,
+        characterData: true
+      });
+
+      // 컴포넌트 언마운트 시 observer 정리
+      scrollTimeoutRef.current = setTimeout(() => {
+        observer.disconnect();
+      }, 1000);
+
+      return () => {
+        observer.disconnect();
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+      };
     }
   }, [messages]);
+
+  // ResizeObserver를 사용하여 채팅 영역 크기 변경 시 스크롤 조정
+  useEffect(() => {
+    if (!chatAreaRef.current) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      scrollToBottom();
+    });
+
+    resizeObserver.observe(chatAreaRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   // 페이지 로드 시 입력창에 포커스 설정
   useEffect(() => {
@@ -44,16 +131,20 @@ const MainPage = () => {
     setIsSidebarOpen(!isSidebarOpen);
     setTooltipVisible(false); // 툴팁 상태를 항상 초기화
     
-    // 사이드바 토글 후 입력창에 포커스 복원
+    // 사이드바 토글 후 입력창에 포커스 복원 및 스크롤 조정
     setTimeout(() => {
       if (symptomInputRef.current && symptomInputRef.current.focus) {
         symptomInputRef.current.focus();
       }
+      scrollToBottom();
     }, 100);
   };
 
   const handleSendMessage = (message) => {
     setMessages((prevMessages) => [...prevMessages, { ...message, id: Date.now() }]);
+    
+    // 메시지 추가 후 즉시 스크롤 (useEffect와 별개로 추가 보장)
+    setTimeout(() => scrollToBottom(), 0);
   };
 
   // "새 대화 시작"을 처리하는 함수
@@ -93,11 +184,26 @@ const MainPage = () => {
           symptomInputRef.current.focus();
         }
       }
+      // Ctrl+End 또는 Cmd+End로 채팅 하단으로 스크롤
+      else if ((e.ctrlKey || e.metaKey) && e.key === 'End') {
+        e.preventDefault();
+        scrollToBottom();
+      }
     };
 
     document.addEventListener('keydown', handleGlobalKeyDown);
     return () => document.removeEventListener('keydown', handleGlobalKeyDown);
   }, [isSidebarOpen]);
+
+  // 윈도우 리사이즈 시 스크롤 조정
+  useEffect(() => {
+    const handleResize = () => {
+      setTimeout(() => scrollToBottom(), 100);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className="main-layout-container">
@@ -125,6 +231,9 @@ const MainPage = () => {
             className={`chat-area ${messages.length > 0 ? 'has-messages' : ''}`} 
             ref={chatAreaRef}
             onClick={handleChatAreaClick}
+            style={{
+              scrollBehavior: 'smooth' // CSS로도 설정 가능하지만 JS에서도 명시
+            }}
           >
             {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
           </div>
