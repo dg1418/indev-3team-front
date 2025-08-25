@@ -124,6 +124,7 @@
   border-radius: 20px;
   padding: 10px 15px;
   margin-right: 10px;
+  background-color: #f5f5f5 !important;  /* 배경색 변경 */
 }
 
 .symptom-input button {
