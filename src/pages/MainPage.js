@@ -18,10 +18,12 @@ const MainPage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true); // 자동 스크롤 활성화 상태
+  const [scrollTooltipVisible, setScrollTooltipVisible] = useState(false); // 스크롤 툴팁 상태
   const chatAreaRef = useRef(null); // 스크롤 제어를 위한 ref 생성
   const symptomInputRef = useRef(null); // SymptomInput 컴포넌트에 대한 ref
   const scrollTimeoutRef = useRef(null); // 스크롤 타이머를 위한 ref
   const isUserScrollingRef = useRef(false); // 사용자가 수동으로 스크롤 중인지 추적
+  
 
   // 사용자가 하단에 있는지 확인하는 함수
   const isUserAtBottom = () => {
@@ -332,8 +334,10 @@ const MainPage = () => {
             }}
           >
             {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
+            
             {/* 자동 스크롤 비활성화 시 하단으로 가는 버튼 표시 */}
             {!isAutoScrollEnabled && messages.length > 0 && (
+               <div className="scroll-button-container">
               <button
                 className="scroll-to-bottom-btn"
                 onClick={() => {
@@ -341,30 +345,16 @@ const MainPage = () => {
                   isUserScrollingRef.current = false;
                   setTimeout(() => scrollToBottom(), 0);
                 }}
-                style={{
-                  position: 'absolute',
-                  bottom: '80px',
-                  right: '20px',
-                  backgroundColor: '#007bff',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '40px',
-                  height: '40px',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '18px',
-                  zIndex: 1000,
-                  transition: 'opacity 0.3s ease'
-                }}
-                title="최신 메시지로 이동"
               >
-                ↓
+               <span>↓</span>
+                최근으로 이동하기
               </button>
-            )}
+                 <div className="scroll-button-tooltip">
+                    최신 메시지로 이동
+              </div>
+            </div>
+          )}
+          
           </div>
           <SymptomInput 
             ref={symptomInputRef} 

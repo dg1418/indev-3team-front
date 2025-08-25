@@ -259,3 +259,113 @@
   color: #868e96;
   margin-top: 20px;
 }
+
+/* 스크롤 버튼 컨테이너 (툴팁을 위해) */
+.scroll-button-container {
+  position: absolute !important;
+  bottom: 80px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 1000 !important;
+}
+
+/* "최근으로 이동하기" 버튼 */
+.scroll-to-bottom-btn {
+  background: #00A86B !important;
+  color: white !important;
+  border: none !important;
+  
+  /* 크기 및 형태 */
+  border-radius: 20px !important;
+  width: auto !important;
+  height: 36px !important;
+  padding: 8px 16px !important;
+  
+  /* 텍스트 및 폰트 */
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  white-space: nowrap !important;
+  
+  /* 커서 및 상호작용 */
+  cursor: pointer !important;
+  user-select: none !important;
+  
+  /* 그림자 및 효과 */
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 
+              0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+  
+  /* 전환 효과 */
+  transition: all 0.2s ease !important;
+  
+  /* 레이아웃 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  
+  /* 상대 위치 */
+  position: relative !important;
+}
+
+/* 호버 효과 */
+.scroll-to-bottom-btn:hover {
+  background: #007660 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.25), 
+              0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 활성화(클릭) 효과 */
+.scroll-to-bottom-btn:active {
+  transform: translateY(0px) !important;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 포커스 효과 */
+.scroll-to-bottom-btn:focus {
+  outline: none !important;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 
+              0 0 0 2px rgba(88, 101, 242, 0.4) !important;
+}
+
+/* 애니메이션 키프레임 (나타날 때) */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 스크롤 버튼 애니메이션 */
+.scroll-button-container {
+  animation: slideInUp 0.3s ease-out !important;
+}
+
+/* 스크롤 버튼 툴팁 스타일 (기존 사이드바 툴팁과 동일) */
+.scroll-button-tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1001;
+  margin-bottom: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.scroll-button-container:hover .scroll-button-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
