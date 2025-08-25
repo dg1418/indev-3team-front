@@ -28,8 +28,21 @@ const MainPage = () => {
     if (!chatAreaRef.current) return true;
     
     const scrollElement = chatAreaRef.current;
-    const threshold = 100; // 하단으로부터 100px 이내면 하단으로 간주
-    const isAtBottom = scrollElement.scrollHeight - scrollElement.scrollTop - scrollElement.clientHeight <= threshold;
+    const threshold = 50; // 하단으로부터 50px 이내면 하단으로 간주 (이전 100px에서 축소)
+    const scrollHeight = scrollElement.scrollHeight;
+    const scrollTop = scrollElement.scrollTop;
+    const clientHeight = scrollElement.clientHeight;
+    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+    
+    // 디버깅용 로그 (개발 중에만 사용)
+    // console.log('Distance from bottom:', distanceFromBottom, 'Threshold:', threshold);
+    
+    const isAtBottom = distanceFromBottom <= threshold;
+    
+    // 추가 조건: 전체 높이가 뷰포트보다 작거나 같으면 항상 true
+    if (scrollHeight <= clientHeight) {
+      return true;
+    }
     
     return isAtBottom;
   };
@@ -143,23 +156,37 @@ const MainPage = () => {
 
     const scrollElement = chatAreaRef.current;
     let scrollTimer;
+    let lastScrollTop = scrollElement.scrollTop;
 
     const handleScroll = () => {
+      const currentScrollTop = scrollElement.scrollTop;
+      const scrollDirection = currentScrollTop > lastScrollTop ? 'down' : 'up';
+      
       // 사용자가 스크롤 중임을 표시
       isUserScrollingRef.current = true;
+      
+      // 위로 스크롤하는 경우 즉시 자동 스크롤 비활성화
+      if (scrollDirection === 'up' && currentScrollTop < lastScrollTop - 5) {
+        setIsAutoScrollEnabled(false);
+      }
+      
+      lastScrollTop = currentScrollTop;
       
       // 스크롤이 멈춘 후 일정 시간 후에 사용자 스크롤 상태 해제
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => {
         isUserScrollingRef.current = false;
         
-        // 사용자가 하단 근처에 있다면 자동 스크롤 다시 활성화
-        if (isUserAtBottom()) {
+        // 사용자가 하단 근처에 있고, 아래로 스크롤했거나 하단에 도달한 경우만 자동 스크롤 재활성화
+        const atBottom = isUserAtBottom();
+        const wasScrollingDown = scrollDirection === 'down';
+        
+        if (atBottom && (wasScrollingDown || currentScrollTop === scrollElement.scrollHeight - scrollElement.clientHeight)) {
           setIsAutoScrollEnabled(true);
-        } else {
+        } else if (!atBottom) {
           setIsAutoScrollEnabled(false);
         }
-      }, 150); // 150ms 후 사용자 스크롤 완료로 간주
+      }, 200); // 200ms로 증가하여 더 안정적으로 처리
     };
 
     scrollElement.addEventListener('scroll', handleScroll, { passive: true });
@@ -197,9 +224,16 @@ const MainPage = () => {
   const handleSendMessage = (message) => {
     setMessages((prevMessages) => [...prevMessages, { ...message, id: Date.now() }]);
     
-    // 새 메시지 전송 시 자동 스크롤 활성화
-    setIsAutoScrollEnabled(true);
-    isUserScrollingRef.current = false;
+    // 새 메시지 전송 시에만 자동 스크롤 활성화 (사용자 메시지의 경우)
+    if (message.sender === 'user') {
+      setIsAutoScrollEnabled(true);
+      isUserScrollingRef.current = false;
+    }
+    // 봇 메시지의 경우 현재 상태 유지 (사용자가 위에 있으면 방해하지 않음)
+    else if (message.sender === 'bot' && isUserAtBottom()) {
+      setIsAutoScrollEnabled(true);
+      isUserScrollingRef.current = false;
+    }
     
     // 메시지 추가 후 즉시 스크롤 (useEffect와 별개로 추가 보장)
     setTimeout(() => scrollToBottom(), 0);
@@ -305,7 +339,7 @@ const MainPage = () => {
                 onClick={() => {
                   setIsAutoScrollEnabled(true);
                   isUserScrollingRef.current = false;
-                  scrollToBottom();
+                  setTimeout(() => scrollToBottom(), 0);
                 }}
                 style={{
                   position: 'absolute',
@@ -323,7 +357,8 @@ const MainPage = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '18px',
-                  zIndex: 1000
+                  zIndex: 1000,
+                  transition: 'opacity 0.3s ease'
                 }}
                 title="최신 메시지로 이동"
               >
