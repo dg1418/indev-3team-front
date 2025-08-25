@@ -17,15 +17,31 @@ const MainPage = () => {
   const [messages, setMessages] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isTooltipVisible, setTooltipVisible] = useState(false);
+  const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true); // 자동 스크롤 활성화 상태
   const chatAreaRef = useRef(null); // 스크롤 제어를 위한 ref 생성
   const symptomInputRef = useRef(null); // SymptomInput 컴포넌트에 대한 ref
   const scrollTimeoutRef = useRef(null); // 스크롤 타이머를 위한 ref
+  const isUserScrollingRef = useRef(false); // 사용자가 수동으로 스크롤 중인지 추적
+
+  // 사용자가 하단에 있는지 확인하는 함수
+  const isUserAtBottom = () => {
+    if (!chatAreaRef.current) return true;
+    
+    const scrollElement = chatAreaRef.current;
+    const threshold = 100; // 하단으로부터 100px 이내면 하단으로 간주
+    const isAtBottom = scrollElement.scrollHeight - scrollElement.scrollTop - scrollElement.clientHeight <= threshold;
+    
+    return isAtBottom;
+  };
 
   // 스크롤을 하단으로 이동시키는 함수 (개선된 버전)
   const scrollToBottom = () => {
-    if (!chatAreaRef.current) return;
+    if (!chatAreaRef.current || !isAutoScrollEnabled) return;
 
     const scrollElement = chatAreaRef.current;
+    
+    // 사용자가 수동으로 스크롤 중이면 자동 스크롤 중단
+    if (isUserScrollingRef.current) return;
     
     // 즉시 스크롤 시도
     scrollElement.scrollTop = scrollElement.scrollHeight;
@@ -35,7 +51,7 @@ const MainPage = () => {
     
     scrollAttempts.forEach(delay => {
       setTimeout(() => {
-        if (scrollElement) {
+        if (scrollElement && isAutoScrollEnabled && !isUserScrollingRef.current) {
           const currentScrollTop = scrollElement.scrollTop;
           const maxScroll = scrollElement.scrollHeight - scrollElement.clientHeight;
           
@@ -49,7 +65,7 @@ const MainPage = () => {
 
     // RequestAnimationFrame을 사용한 추가 보정
     const smoothScrollToBottom = () => {
-      if (scrollElement) {
+      if (scrollElement && isAutoScrollEnabled && !isUserScrollingRef.current) {
         const maxScroll = scrollElement.scrollHeight - scrollElement.clientHeight;
         const currentScroll = scrollElement.scrollTop;
         
@@ -65,46 +81,53 @@ const MainPage = () => {
 
   // 새 메시지가 추가될 때마다 스크롤을 맨 아래로 이동 (개선된 버전)
   useEffect(() => {
-    // 이전 타이머가 있다면 클리어
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
+    // 메시지가 추가되면 자동 스크롤이 활성화된 상태에서만 스크롤
+    if (isAutoScrollEnabled) {
+      // 이전 타이머가 있다면 클리어
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      // 메시지가 추가되면 스크롤을 하단으로
+      scrollToBottom();
+
+      // MutationObserver를 사용하여 DOM 변경 사항을 감지하고 스크롤 조정
+      if (chatAreaRef.current) {
+        const observer = new MutationObserver(() => {
+          if (isAutoScrollEnabled && !isUserScrollingRef.current) {
+            scrollToBottom();
+          }
+        });
+
+        observer.observe(chatAreaRef.current, {
+          childList: true,
+          subtree: true,
+          characterData: true
+        });
+
+        // 컴포넌트 언마운트 시 observer 정리
+        scrollTimeoutRef.current = setTimeout(() => {
+          observer.disconnect();
+        }, 1000);
+
+        return () => {
+          observer.disconnect();
+          if (scrollTimeoutRef.current) {
+            clearTimeout(scrollTimeoutRef.current);
+          }
+        };
+      }
     }
-
-    // 메시지가 추가되면 스크롤을 하단으로
-    scrollToBottom();
-
-    // MutationObserver를 사용하여 DOM 변경 사항을 감지하고 스크롤 조정
-    if (chatAreaRef.current) {
-      const observer = new MutationObserver(() => {
-        scrollToBottom();
-      });
-
-      observer.observe(chatAreaRef.current, {
-        childList: true,
-        subtree: true,
-        characterData: true
-      });
-
-      // 컴포넌트 언마운트 시 observer 정리
-      scrollTimeoutRef.current = setTimeout(() => {
-        observer.disconnect();
-      }, 1000);
-
-      return () => {
-        observer.disconnect();
-        if (scrollTimeoutRef.current) {
-          clearTimeout(scrollTimeoutRef.current);
-        }
-      };
-    }
-  }, [messages]);
+  }, [messages, isAutoScrollEnabled]);
 
   // ResizeObserver를 사용하여 채팅 영역 크기 변경 시 스크롤 조정
   useEffect(() => {
     if (!chatAreaRef.current) return;
 
     const resizeObserver = new ResizeObserver(() => {
-      scrollToBottom();
+      if (isAutoScrollEnabled && !isUserScrollingRef.current) {
+        scrollToBottom();
+      }
     });
 
     resizeObserver.observe(chatAreaRef.current);
@@ -112,9 +135,40 @@ const MainPage = () => {
     return () => {
       resizeObserver.disconnect();
     };
-  }, []);
+  }, [isAutoScrollEnabled]);
 
-  // 페이지 로드 시 입력창에 포커스 설정
+  // 사용자의 스크롤 동작을 감지하는 useEffect 추가
+  useEffect(() => {
+    if (!chatAreaRef.current) return;
+
+    const scrollElement = chatAreaRef.current;
+    let scrollTimer;
+
+    const handleScroll = () => {
+      // 사용자가 스크롤 중임을 표시
+      isUserScrollingRef.current = true;
+      
+      // 스크롤이 멈춘 후 일정 시간 후에 사용자 스크롤 상태 해제
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        isUserScrollingRef.current = false;
+        
+        // 사용자가 하단 근처에 있다면 자동 스크롤 다시 활성화
+        if (isUserAtBottom()) {
+          setIsAutoScrollEnabled(true);
+        } else {
+          setIsAutoScrollEnabled(false);
+        }
+      }, 150); // 150ms 후 사용자 스크롤 완료로 간주
+    };
+
+    scrollElement.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      scrollElement.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimer);
+    };
+  }, []);
   useEffect(() => {
     // 페이지 로드 후 약간의 지연을 두고 포커스 설정
     const timer = setTimeout(() => {
@@ -142,6 +196,10 @@ const MainPage = () => {
 
   const handleSendMessage = (message) => {
     setMessages((prevMessages) => [...prevMessages, { ...message, id: Date.now() }]);
+    
+    // 새 메시지 전송 시 자동 스크롤 활성화
+    setIsAutoScrollEnabled(true);
+    isUserScrollingRef.current = false;
     
     // 메시지 추가 후 즉시 스크롤 (useEffect와 별개로 추가 보장)
     setTimeout(() => scrollToBottom(), 0);
@@ -187,6 +245,8 @@ const MainPage = () => {
       // Ctrl+End 또는 Cmd+End로 채팅 하단으로 스크롤
       else if ((e.ctrlKey || e.metaKey) && e.key === 'End') {
         e.preventDefault();
+        setIsAutoScrollEnabled(true);
+        isUserScrollingRef.current = false;
         scrollToBottom();
       }
     };
@@ -198,12 +258,14 @@ const MainPage = () => {
   // 윈도우 리사이즈 시 스크롤 조정
   useEffect(() => {
     const handleResize = () => {
-      setTimeout(() => scrollToBottom(), 100);
+      if (isAutoScrollEnabled && !isUserScrollingRef.current) {
+        setTimeout(() => scrollToBottom(), 100);
+      }
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isAutoScrollEnabled]);
 
   return (
     <div className="main-layout-container">
@@ -236,6 +298,38 @@ const MainPage = () => {
             }}
           >
             {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
+            {/* 자동 스크롤 비활성화 시 하단으로 가는 버튼 표시 */}
+            {!isAutoScrollEnabled && messages.length > 0 && (
+              <button
+                className="scroll-to-bottom-btn"
+                onClick={() => {
+                  setIsAutoScrollEnabled(true);
+                  isUserScrollingRef.current = false;
+                  scrollToBottom();
+                }}
+                style={{
+                  position: 'absolute',
+                  bottom: '80px',
+                  right: '20px',
+                  backgroundColor: '#007bff',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '18px',
+                  zIndex: 1000
+                }}
+                title="최신 메시지로 이동"
+              >
+                ↓
+              </button>
+            )}
           </div>
           <SymptomInput 
             ref={symptomInputRef} 
