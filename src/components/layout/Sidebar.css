@@ -142,7 +142,7 @@
 .sidebar-new-chat button, .sidebar-bottom button {
   width: 100%;
   padding: 12px 15px;
-  background-color: #00A86B;
+  background-color: #808080;
   border: 1px solid #555;
   border-radius: 8px;
   color: #e0e0e0;
@@ -156,7 +156,7 @@
 
 /* '새 채팅' 버튼과 하단 버튼의 hover 효과 */
 .sidebar-new-chat button:hover, .sidebar-bottom button:hover {
-  background-color: #007660;
+  background-color: #696969;
 }
 
 /* '새 채팅' 버튼과 하단 버튼의 SVG 아이콘 스타일 */
