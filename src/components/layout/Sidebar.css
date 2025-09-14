@@ -45,7 +45,29 @@
 }
 
 .sidebar-logo {
-  height: 40px;
+  height: 50px;
+}
+
+/* 툴팁 컨테이너 */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* 툴팁 스타일 (App.css와 일관성 유지) */
+.tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1200; /* 사이드바보다 위에 오도록 설정 */
+  margin-top: 8px;
 }
 
 /* 사이드바 '닫기' 버튼 */
@@ -63,11 +85,64 @@
   filter: invert(1);
 }
 
+/* 섹션 헤더 스타일 (제목과 검색창 포함) */
+.sidebar-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.sidebar-section-title {
+  font-size: 14px;
+  color: #a0a0a0;
+  padding-left: 5px;
+  font-weight: 500;
+  margin: 0; /* 헤더 컨테이너에서 마진을 관리하므로 초기화 */
+}
+
+/* 검색창 컨테이너 */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 8px;
+  color: #888;
+  font-size: 12px;
+}
+
+.search-input {
+  background-color: #3a3f47;
+  border: 1px solid #555;
+  border-radius: 15px;
+  color: #e0e0e0;
+  font-size: 12px;
+  padding: 4px 8px 4px 25px; /* 아이콘 공간 확보 */
+  width: 120px; /* 너비 조절 */
+  transition: width 0.2s ease-in-out, background-color 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  background-color: #4a4f57;
+  width: 140px; /* 포커스 시 너비 확장 */
+}
+
+.search-input::placeholder {
+  color: #888;
+}
+
+
 /* 나머지 스타일은 이전과 거의 동일 */
 .sidebar-new-chat button, .sidebar-bottom button {
   width: 100%;
   padding: 12px 15px;
-  background-color: #00A86B;
+  background-color: #808080;
   border: 1px solid #555;
   border-radius: 8px;
   color: #e0e0e0;
@@ -81,7 +156,7 @@
 
 /* '새 채팅' 버튼과 하단 버튼의 hover 효과 */
 .sidebar-new-chat button:hover, .sidebar-bottom button:hover {
-  background-color: #007660;
+  background-color: #696969;
 }
 
 /* '새 채팅' 버튼과 하단 버튼의 SVG 아이콘 스타일 */
@@ -92,7 +167,7 @@
 /* 사이드바 채팅 목록 스타일 */
 .sidebar-history {
   flex-grow: 1;
-  margin-top: 20px;
+  /* margin-top: 20px; */ /* 섹션 제목과의 간격을 위해 제거 또는 조정 */
   overflow-y: auto; /* 스크롤 가능하도록 설정 */
   padding-right: 10px; /* 스크롤바 공간 확보 */
   min-height: 0;
@@ -152,7 +227,7 @@
 
 /* 약국 목록 스타일 추가 */
 .pharmacy-list {
-  margin-top: 15px;
+  margin-top: 10px; /* 섹션 제목과의 간격을 위해 조정 */
 }
 
 .pharmacy-list p {
@@ -179,4 +254,10 @@
 .sidebar-bottom::-webkit-scrollbar-thumb:hover {
   background: #666;
   border-radius: 3px;
+}
+
+/* "가까운 약국" 소제목 간격 조정을 위한 추가 스타일 */
+.sidebar-bottom .sidebar-section-title {
+  margin-top: 8px; /* '가까운 약국 찾기' 버튼과의 간격 */
+  margin-bottom: 3px; /* 약국 목록과의 간격 */
 }

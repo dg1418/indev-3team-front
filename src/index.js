@@ -8,6 +8,7 @@
 // 모든 import문을 파일 상단에 배치
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './styles/global.css';
 import './styles/index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
