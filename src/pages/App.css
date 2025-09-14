@@ -62,7 +62,7 @@
 
 /* 사이드바 '열기' 버튼 스타일 - position을 static으로 변경 */
 .sidebar-open-btn {
-  background-color: #00A86B;
+  background-color: #000000;
   border: none;
   border-radius: 50%;
   padding: 8px;
@@ -75,7 +75,7 @@
 }
 
 .sidebar-open-btn:hover {
-  background-color: #007660;
+  background-color: #696969;
 }
 
 .sidebar-open-btn svg {
@@ -129,7 +129,7 @@
 }
 
 .symptom-input button {
-  background-color: #00A86B;
+  background-color: #000000;
   color: white;
   border: none;
   border-radius: 20px;
@@ -138,7 +138,7 @@
 }
 
 .symptom-input button:hover {
-  background-color: #007660;
+  background-color: #696969;
 }
 
 /* Message.css */
@@ -153,8 +153,8 @@
 
 .message.user {
   align-self: flex-end;
-  background-color: #00A86B;
-  color: white;
+  background-color: #a9a9a9;
+  color: black;
   border-bottom-right-radius: 5px;
 }
 
@@ -233,24 +233,24 @@
 }
 
 .symptom-button:hover {
-  background-color: #00A86B;
+  background-color: #696969;
   color: white;
-  border-color: #00A86B;
+  border-color: #696969;
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0, 168, 107, 0.2);
 }
 
 /* 선택된 상태의 증상 버튼 스타일 */
 .symptom-button.selected {
-  background-color: #00A86B;
+  background-color: #000000;
   color: white;
-  border-color: #00A86B;
-  box-shadow: 0 2px 8px rgba(0, 168, 107, 0.3);
+  border-color: #000000;
+  box-shadow: 0 2px 8px rgba(61, 61, 61, 0.836);
 }
 
 .symptom-button.selected:hover {
-  background-color: #007660;
-  border-color: #007660;
+  background-color: #000000;
+  border-color: #000000;
 }
 
 /* 예시 텍스트 스타일 */
@@ -271,7 +271,7 @@
 
 /* "최근으로 이동하기" 버튼 */
 .scroll-to-bottom-btn {
-  background: #00A86B !important;
+  background: #000000 !important;
   color: white !important;
   border: none !important;
   
@@ -310,7 +310,7 @@
 
 /* 호버 효과 */
 .scroll-to-bottom-btn:hover {
-  background: #007660 !important;
+  background: #696969 !important;
   transform: translateY(-1px) !important;
   box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.25), 
               0 0 0 1px rgba(255, 255, 255, 0.1) !important;
