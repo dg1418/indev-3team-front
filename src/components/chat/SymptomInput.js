@@ -160,7 +160,7 @@ const SymptomInput = forwardRef(({ onSendMessage }, ref) => {
         autoComplete="off"
         autoFocus
       />
-      <button type="submit" disabled={isLoading || !inputText.trim()}>
+      <button type="submit" className="main-button" disabled={isLoading || !inputText.trim()}>
         {isLoading ? '전송 중...' : '전송'}
       </button>
     </form>
