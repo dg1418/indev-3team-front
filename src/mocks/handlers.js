@@ -48,7 +48,7 @@ const medicineDatabase = {
 
 export const handlers = [
   // 가짜 카카오 로그인 핸들러 추가
-  http.post('/api/auth/kakao', async () => {
+  http.post('http://54.180.95.200:3000/api/auth/login/kakao', async () => {
     // 가짜 accessToken 생성
     const accessToken = 'mock-access-token-12345';
 
