@@ -3,6 +3,7 @@
  * @description 사용자 로그인 기능을 제공하는 페이지 컴포넌트입니다.
  *              카카오 로그인을 통해 사용자 인증을 수행합니다.
  */
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { kakaoLogin } from '../services/authService';
@@ -13,7 +14,8 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      // 2단계에서 만든 로그인 함수 호출 (인증 코드는 임시값)
+      
+      // services/authService.js 에서 만든 로그인 함수 호출 (인증 코드는 임시값)
       await kakaoLogin('fake-kakao-auth-code');
       
       alert('로그인 성공!');
