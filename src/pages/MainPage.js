@@ -13,7 +13,10 @@ import InitialPrompt from '../components/chat/InitialPrompt';
 import { ReactComponent as ArrowCircleRight } from '../assets/arrow-circle-right.svg';
 import './App.css';
 
+import { useNavigate } from 'react-router-dom';
+
 const MainPage = () => {
+  const navigate = useNavigate(); // useNavigate 훅 사용
   const [messages, setMessages] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isTooltipVisible, setTooltipVisible] = useState(false);
@@ -326,8 +329,17 @@ const MainPage = () => {
       <div className="chat-wrapper">
         {/* 사용자 정보 및 로그인 버튼이 위치할 헤더 영역 */}
         <div className="main-header">
-          {/* 임시 텍스트 */}
-          <span>로그인/프로필 영역</span>
+          <button 
+            onClick={() => navigate('/login')}
+            style={{
+              padding: '8px 16px',
+              border: '1px solid #ccc',
+              borderRadius: '8px',
+              cursor: 'pointer'
+            }}
+          >
+            로그인
+          </button>
         </div>
 
         <div className="chat-container">
