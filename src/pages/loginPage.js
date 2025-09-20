@@ -4,7 +4,7 @@
  *              카카오 로그인을 통해 사용자 인증을 수행합니다.
  */
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { kakaoLogin } from '../services/authService';
 
 // 간단한 인라인 스타일을 사용합니다.
 const styles = {
@@ -42,11 +42,17 @@ const styles = {
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // 실제 카카오 로그인 로직은 여기에 구현됩니다.
-    // 지금은 메인 페이지로 돌아가는 것으로 가정합니다.
-    alert('카카오 로그인 기능 구현 예정');
-    navigate('/');
+  const handleLogin = async () => {
+    try {
+      // 2단계에서 만든 로그인 함수 호출 (인증 코드는 임시값)
+      await kakaoLogin('fake-kakao-auth-code');
+      
+      alert('로그인 성공!');
+      navigate('/'); // 메인 페이지로 이동
+    } catch (error) {
+      alert('로그인에 실패했습니다.');
+      console.error(error);
+    }
   };
 
   return (
