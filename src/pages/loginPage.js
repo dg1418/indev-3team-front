@@ -4,6 +4,7 @@
  *              카카오 로그인을 통해 사용자 인증을 수행합니다.
  */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { kakaoLogin } from '../services/authService';
 
 // 간단한 인라인 스타일을 사용합니다.
