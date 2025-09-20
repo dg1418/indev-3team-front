@@ -13,6 +13,8 @@ import './styles/index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 
+import { BrowserRouter } from 'react-router-dom';
+
 // MSW를 비동기로 초기화하고 앱을 시작하는 함수
 async function startApp() {
   // 개발 환경에서만 MSW 초기화
@@ -38,7 +40,9 @@ async function startApp() {
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
   );
 }
