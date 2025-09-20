@@ -331,12 +331,7 @@ const MainPage = () => {
         <div className="main-header">
           <button 
             onClick={() => navigate('/login')}
-            style={{
-              padding: '8px 16px',
-              border: '1px solid #ccc',
-              borderRadius: '8px',
-              cursor: 'pointer'
-            }}
+            className="main-button"
           >
             로그인
           </button>
