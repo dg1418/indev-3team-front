@@ -13,7 +13,10 @@ import InitialPrompt from '../components/chat/InitialPrompt';
 import { ReactComponent as ArrowCircleRight } from '../assets/arrow-circle-right.svg';
 import './App.css';
 
+import { useNavigate } from 'react-router-dom';
+
 const MainPage = () => {
+  const navigate = useNavigate(); // useNavigate 훅 사용
   const [messages, setMessages] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isTooltipVisible, setTooltipVisible] = useState(false);
@@ -324,9 +327,19 @@ const MainPage = () => {
       </div>
 
       <div className="chat-wrapper">
+        {/* 사용자 정보 및 로그인 버튼이 위치할 헤더 영역 */}
+        <div className="main-header">
+          <button 
+            onClick={() => navigate('/login')}
+            className="main-button"
+          >
+            로그인
+          </button>
+        </div>
+
         <div className="chat-container">
-          <div 
-            className={`chat-area ${messages.length > 0 ? 'has-messages' : ''}`} 
+          <div
+            className={`chat-area ${messages.length > 0 ? 'has-messages' : ''}`}
             ref={chatAreaRef}
             onClick={handleChatAreaClick}
             style={{
@@ -334,7 +347,7 @@ const MainPage = () => {
             }}
           >
             {messages.length === 0 ? <InitialPrompt /> : <ChatWindow messages={messages} />}
-            
+
             {/* 자동 스크롤 비활성화 시 하단으로 가는 버튼 표시 */}
             {!isAutoScrollEnabled && messages.length > 0 && (
                <div className="scroll-button-container">
@@ -354,11 +367,11 @@ const MainPage = () => {
               </div>
             </div>
           )}
-          
+
           </div>
-          <SymptomInput 
-            ref={symptomInputRef} 
-            onSendMessage={handleSendMessage} 
+          <SymptomInput
+            ref={symptomInputRef}
+            onSendMessage={handleSendMessage}
           />
           <p className="disclaimer-text">※ 약지기의 ChatBot은 잘못된 정보를 제공할 가능성이 있습니다. 제공된 정보를 맹신하지 마십시오.</p>
         </div>

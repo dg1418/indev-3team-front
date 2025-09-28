@@ -29,6 +29,16 @@
   background-color: #ffffff; /* 채팅 영역 배경색 */
 }
 
+/* 새로 추가된 메인 헤더 스타일 */
+.main-header {
+  height: 50px; /* 헤더 높이 지정 */
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: flex-end; /* 가로 오른쪽 정렬 */
+  padding: 0 20px; /* 좌우 패딩 */
+  flex-shrink: 0; /* 헤더 높이가 줄어들지 않도록 설정 */
+}
+
 .chat-container {
   flex-grow: 1;
   display: flex;
@@ -128,19 +138,6 @@
   background-color: #f5f5f5;  /* 배경색 변경 */
 }
 
-.symptom-input button {
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.symptom-input button:hover {
-  background-color: #696969;
-}
-
 /* Message.css */
 .message {
   max-width: 70%;
@@ -149,6 +146,21 @@
   line-height: 1;
   word-wrap: break-word;
   position: relative;
+}
+
+/* 새로운 공통 버튼 스타일 */
+.main-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.main-button:hover {
+  background-color: #696969;
 }
 
 .message.user {

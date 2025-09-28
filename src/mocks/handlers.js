@@ -47,6 +47,29 @@ const medicineDatabase = {
 };
 
 export const handlers = [
+  // 가짜 카카오 로그인 핸들러 추가
+  http.post('http://54.180.95.200:3000/api/auth/login/kakao', async () => {
+    // 가짜 accessToken 생성
+    const accessToken = 'mock-access-token-12345';
+
+    // 가짜 refreshToken을 담을 쿠키 설정
+    const refreshToken = 'mock-refresh-token-67890';
+    
+    // 성공 응답을 반환합니다.
+    return HttpResponse.json(
+      {
+        user: { id: 1, name: '테스트 유저' },
+        accessToken: accessToken,
+      },
+      {
+        status: 200,
+        headers: {
+          'Set-Cookie': `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=604800`,
+        },
+      }
+    );
+  }),
+
   // 사용자가 증상을 제출했을 때의 요청을 처리
   http.post('/api/symptoms', async ({ request }) => {
     try {
